@@ -1,0 +1,10 @@
+DoomEdNums
+{
+	1506 = LaserTrunk
+}
+
+Map MAP01 "Entry Portal"
+{
+	LevelNum = 1
+	Music = ""
+}

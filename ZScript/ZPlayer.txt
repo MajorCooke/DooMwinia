@@ -1,0 +1,10 @@
+Class DooMwinianPlayer : PlayerPawn
+{
+	Default
+	{
+		Speed 0;
+		Player.DisplayName "DoomwinianPlayer";
+		Player.MaxHealth 201;
+		
+	}
+}

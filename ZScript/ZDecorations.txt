@@ -1,0 +1,91 @@
+Class LaserTrunk : Actor
+{
+	//$Category DooMwinia
+	int id;
+	int spawncount;
+	
+	Default
+	{
+		+FLATSPRITE
+		+ROLLSPRITE
+		+NOINTERACTION
+		RenderStyle "Add";
+	}
+	
+	override void PostBeginPlay()
+	{
+		pitch = -90;
+		id = tid;
+		ChangeTID(0);
+		
+		if (!id)
+		{
+			A_SpawnItemEx("LaserTrunk",angle: 90,flags: SXF_NOCHECKPOSITION|SXF_SETMASTER|SXF_TRANSFERSCALE|SXF_TRANSFERPITCH,tid: 1);
+			
+			int mx = random(5,8);
+			for (int i = 0; i < mx; i++)
+			{
+				A_SpawnItemEx("LaserBranch",frandom(-1.0,-3.0),0,frandom(70.0,120.0),angle: frandom(0.0,359.0),flags: SXF_NOCHECKPOSITION|SXF_SETMASTER|SXF_ISTRACER);
+				if (tracer)	tracer.pitch = frandom(-75.0,5.0);
+			}
+		}
+		Super.PostBeginPlay();
+	}
+	
+	override void OnDestroy()
+	{
+		A_RemoveChildren(true,RMVF_EVERYTHING);
+		Super.OnDestroy();
+	}
+	
+	States
+	{
+	Spawn:
+		M101 C -1;
+		Stop;
+	}
+}
+
+Class LaserBranch : Actor
+{
+	int id;
+	
+	override void PostBeginPlay()
+	{
+		id = tid;
+		ChangeTID(0);
+		
+		if (!id)
+		{
+			A_SpawnItemEx("LaserBranch",flags: SXF_NOCHECKPOSITION|SXF_TRANSFERPOINTERS|SXF_TRANSFERSCALE|SXF_TRANSFERPITCH,tid: 1);
+		}
+		else
+		{
+			roll = pitch + 90;
+			pitch = -90;
+			angle -= 90;
+		}
+		Super.PostBeginPlay();
+	}
+	
+	Default
+	{
+		+FLATSPRITE
+		+NOINTERACTION
+		Scale 0.5;
+		RenderStyle "Add";
+	}
+	States
+	{
+	Spawn:
+		M101 C -1;
+		Stop;
+	}
+}
+
+Class LaserLeaf : Actor
+{
+	Default
+	{
+	}
+}
