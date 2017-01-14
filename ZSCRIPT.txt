@@ -1,2 +1,3 @@
+#include "ZScript/ZConstants.txt"
 #include "ZScript/ZPlayer.txt"
 #include "ZScript/ZDecorations.txt"
