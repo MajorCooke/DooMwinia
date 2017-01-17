@@ -150,14 +150,6 @@ Class LaserBranchSpawner : Actor
 			angle += frandom(-MaxAP, MaxAP);
 			Scale.Y += frandom(0.01, -0.025);
 		}
-		/*
-		if (tid)
-		{
-			Destroy();
-			return;
-		}
-		*/
-		
 		
 		Vector3 oldpos = pos;
 		MaxSpawn = random(1,3);
@@ -175,6 +167,22 @@ Class LaserBranchSpawner : Actor
 			A_SpawnItemEx("LaserBranch",cos(pitch) * -2.0,0,-sin(pitch) * -2.0,
 				flags: SXF_NOCHECKPOSITION|SXF_TRANSFERPOINTERS|SXF_TRANSFERSCALE|SXF_TRANSFERPITCH|SXF_TRANSFERSPRITEFRAME|SXF_TRANSFERRENDERSTYLE);
 			
+			double op = pitch;
+			double oa = angle;
+			
+			A_Warp(DefPtr,cos(pitch) * 75.0 * Scale.Y,0,-sin(pitch) * 75.0 * Scale.Y,WARPF_NOCHECKPOSITION);
+			
+			int rng = random(1,4);
+			for (int t = 0; t < rng; t++)
+			{
+				A_SpawnItemEx("LaserLeaf",
+					flags: SXF_NOCHECKPOSITION|SXF_TRANSFERPOINTERS|SXF_TRANSFERPITCH|SXF_TRANSFERRENDERSTYLE);
+				angle += frandom(MaxAP / 4.0, MaxAP) * dir;
+				pitch += frandom(MaxAP / 4.0, MaxAP) * randompick(-1,1);
+				
+				if (t == rng - 1)
+				{	angle = oa; pitch = op;	}
+			}
 			//A_Warp(DefPtr, fx, 0, fz, 0, WARPF_NOCHECKPOSITION);
 			SetOrigin(oldpos,false);
 			angle += frandom(MaxAP / 4.0, MaxAP) * dir;
@@ -184,32 +192,6 @@ Class LaserBranchSpawner : Actor
 			Scale.X += frandom(0.01, -0.025);
 			Scale.Y += frandom(0.01, -0.025);
 		}
-		
-		/*
-		for (int i = 0; i < MaxSpawn; i++)
-		{
-			
-			Scale.Y = frandom(0.1, 0.2);
-			for (int j = 0; j < MaxSpawn2; j++)
-			{
-				double ml = MaxLength * Scale.Y;
-				double fx =  (cos(pitch) * (ml - (Subt * (Scale.Y))));
-				double fz = (-sin(pitch) * (ml - (Subt * (Scale.Y))));
-				A_SpawnItemEx("LaserBranch",
-					flags: SXF_NOCHECKPOSITION|SXF_TRANSFERPOINTERS|SXF_TRANSFERSCALE|SXF_TRANSFERPITCH|SXF_TRANSFERSPRITEFRAME|SXF_TRANSFERRENDERSTYLE);
-				
-				A_Warp(DefPtr, fx, 0, fz, 0, WARPF_NOCHECKPOSITION);
-				//SetOrigin(Vec3Angle(fx, angle, fz),false);
-				pitch += frandom(-MaxAP, MaxAP);
-				angle += frandom(-MaxAP, MaxAP);
-				Scale.X += frandom(0.01, -0.025);
-				Scale.Y += frandom(0.01, -0.025);
-			}
-			SetOrigin(oldpos,false);
-			angle += frandom(MaxAP / 2.0, MaxAP) * dir;
-			pitch += frandom(MaxAP / 2.0, MaxAP) * randompick(-1,1);
-			
-		} */
 		
 		Destroy();
 	}
@@ -234,8 +216,6 @@ Class LaserBranch : Actor
 			roll = pitch + 90;
 			pitch = -90;
 			angle -= 90;
-			//pitch = 90;
-			//angle += 90;
 		}
 		Super.PostBeginPlay();
 	}
@@ -261,10 +241,48 @@ Class LaserBranch : Actor
 
 Class LaserLeaf : Actor
 {
+	int turned;
+	property Turned: turned;
 	Default
 	{
+		+NOINTERACTION
+		+NOBLOCKMAP
+		+THRUACTORS
+		+NOTONAUTOMAP
+		+FLATSPRITE
+		YScale 0.20;
+		XScale 0.7;
+		RenderStyle "Add";
+		LaserLeaf.Turned 0;
+	}
+	
+	override void PostBeginPlay()
+	{
+		if (!turned)
+		{
+			Scale.X = frandom(0.7, 0.9);
+			Scale.Y = frandom(0.05, 0.15);
+			A_SpawnItemEx("LaserLeaf2",flags: SXF_NOCHECKPOSITION|SXF_TRANSFERPITCH|SXF_TRANSFERPOINTERS|SXF_TRANSFERSCALE);
+		}
+		else
+		{
+			roll = pitch + 90;
+			pitch = -90;
+			angle -= 90;
+		}
+		Super.PostBeginPlay();
+	}
+	
+	States
+	{
+	Spawn:
+		M101 G -1;
+		Stop;
 	}
 }
+
+Class LaserLeaf2 : LaserLeaf
+{	Default	{	LaserLeaf.Turned 1;	}	}
 
 // Used for reinitializing trees, debug purposes only.
 

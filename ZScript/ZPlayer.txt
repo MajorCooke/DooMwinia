@@ -8,3 +8,5 @@ Class DooMwinianPlayer : PlayerPawn
 		
 	}
 }
+
+//Class DooMwinianWeapon : Weapon
