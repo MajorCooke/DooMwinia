@@ -3,8 +3,24 @@ DoomEdNums
 	1506 = LaserTrunk
 }
 
+GameInfo
+{
+	QuitSound = "Darwinian/BurnDeath"
+	QuitMessages = 
+		"WARNING: Virus removal incomplete. Closing the application may result in further infection. Continue?",
+		"y0u cRn`T 3sGapE f0r3\/er...",
+		"Do you really want to leave the virus running rampant?",
+		"There isn't even gore in this, and you're still going to run away?",
+		"WARNING: Insufficient progress. Leaving now will result in a permanent ban from the internet.",
+		"Commence deletion of system files?",
+		"Commence hard drive reformat?",
+		"Commence processor overclocking to dangerous speeds?",
+		"ERROR: Matrix Glitch #89203531 -- User compromised. Terminating process will terminate life form. Proceed?"
+}
+
 Map MAP01 "Entry Portal"
 {
 	LevelNum = 1
 	Music = ""
 }
+

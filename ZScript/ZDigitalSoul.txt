@@ -1,0 +1,14 @@
+Class DigitalSoul : DWEntityTemp
+{
+}
+
+Class DarwinianGhost : DWEntityTemp
+{
+	/*
+	override void PostBeginPlay()
+	{
+		A_SetTranslation('');
+		Super.PostBeginPlay();
+	}
+	*/
+}

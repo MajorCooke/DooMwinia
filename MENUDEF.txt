@@ -1,0 +1,59 @@
+// Replace the default with our custom one.
+
+DefaultListMenu
+{
+	Class "ListMenuScroller"
+}
+
+ListMenu "MainMenu"
+{
+	Font "BIGFONT", "Red", "White"
+	StaticPatchMovable 94, 2, "M_DOOM"
+	Position 97, 72
+	IfOption(ReadThis)
+	{
+		Position 97, 64
+	}
+	
+	TextItemPulse "New Game", "n", "PlayerclassMenu"
+	ifOption(SwapMenu)
+	{
+		TextItemPulse "Load Game", "l", "LoadGameMenu"
+		TextItemPulse "Save Game", "s", "SaveGameMenu"
+		TextItemPulse "Options","o", "OptionsMenu", 270
+	}
+	else
+	{
+		TextItemPulse "Options","o", "OptionsMenu", 270
+		TextItemPulse "Load Game", "l", "LoadGameMenu"
+		TextItemPulse "Save Game", "s", "SaveGameMenu"
+	}
+	ifOption(ReadThis)
+	{
+		TextItemPulse "Read This!","r", "ReadThisMenu"
+	}
+	TextItemPulse "Quit Game", "q", "QuitMenu", 90
+}
+
+OptionMenu "OptionsMenu"
+{
+	Title "$OPTMNU_TITLE"
+	SubMenuColor "$OPTMNU_CONTROLS",		"CustomizeControls"
+	SubMenuColor "$OPTMNU_MOUSE",			"MouseOptions"
+	SubMenuColor "$OPTMNU_JOYSTICK",		"JoystickOptions"
+	StaticText " "
+	SubMenuColor "$OPTMNU_PLAYER",			"PlayerMenu"
+	SubMenuColor "$OPTMNU_GAMEPLAY",		"GameplayOptions"
+	SubMenuColor "$OPTMNU_COMPATIBILITY",	"CompatibilityOptions"
+	SubMenuColor "$OPTMNU_AUTOMAP",			"AutomapOptions"
+	SubMenuColor "$OPTMNU_HUD",				"HUDOptions"
+	SubMenuColor "$OPTMNU_MISCELLANEOUS",	"MiscOptions"
+	SubMenuColor "$OPTMNU_NETWORK",			"NetworkOptions"
+	SubMenuColor "$OPTMNU_SOUND",			"SoundOptions"
+	SubMenuColor "$OPTMNU_DISPLAY",			"VideoOptions"
+	SubMenuColor "$OPTMNU_VIDEO",			"VideoModeMenu"
+	StaticText " "
+	SafeCommand "$OPTMNU_DEFAULTS",	"reset2defaults"
+	SafeCommand	"$OPTMNU_RESETTOSAVED",	"reset2saved"
+	Command "$OPTMNU_CONSOLE",			"menuconsole"
+}

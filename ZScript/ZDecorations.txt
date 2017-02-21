@@ -104,7 +104,7 @@ Class LaserTrunk2 : Actor
 	States
 	{
 	Spawn:
-		"####" "#" -1;
+		"####" "#" -1 NoDelay ChangeTID(0);
 		Stop;
 	}
 }
@@ -218,6 +218,7 @@ Class LaserBranch : Actor
 			angle -= 90;
 		}
 		Super.PostBeginPlay();
+		ChangeTID(0);
 	}
 	
 	Default
@@ -270,6 +271,7 @@ Class LaserLeaf : Actor
 			pitch = -90;
 			angle -= 90;
 		}
+		ChangeTID(0);
 		Super.PostBeginPlay();
 	}
 	
@@ -297,6 +299,7 @@ Class TreeRespawner : Actor
 	}
 	override void PostBeginPlay()
 	{
+		ChangeTID(0);
 		ThinkerIterator TreeFinder = ThinkerIterator.Create("LaserTrunk");
 		Actor mo;
 		while (mo = Actor(TreeFinder.Next(true)))

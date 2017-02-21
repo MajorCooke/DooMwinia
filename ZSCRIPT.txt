@@ -1,3 +1,33 @@
 #include "ZScript/ZConstants.txt"
-#include "ZScript/ZPlayer.txt"
+#include "ZScript/ZWeapons.txt"
+#include "ZScript/ZEffects.txt"
+#include "ZScript/ZFunctions.txt"
+
+#include "ZScript/Player/ZPlayer.txt"
+#include "ZScript/Player/ZPlayerFunctions.txt"
+
+// Actual entities
+#include "ZScript/ZBase.txt"
 #include "ZScript/ZDecorations.txt"
+#include "ZScript/ZDigitalSoul.txt"
+#include "ZScript/ZDarwinian.txt"
+#include "ZScript/ZMisc.txt"
+#include "ZScript/ZSoulDestroyer.txt"
+#include "ZScript/ZZOptionMenu.txt"
+#include "ZScript/ZZOptionMenuItem.txt"
+#include "ZScript/ZZListMenu.txt"
+#include "ZScript/ZZListMenuItem.txt"
+
+/*	//Stuff for later.
+	
+	//DrawHUDTexture
+	//TextureID tex = TexMan.CheckForTexture("M_DOOM", TexMan.TYPE_Any);
+	//Screen.DrawHUDTexture(tex, 0, 0);
+	int vw = Screen.GetWidth()/4;
+	int vh = Screen.GetHeight()/4;
+	
+	Font f = Font.GetFont("BIGFONT");
+	//native static vararg void DrawText(Font font, int normalcolor, double x, double y, String text, ...);
+	int wd = f.StringWidth("Totally meow here");
+	Screen.DrawText(f, Screen.CR_RED, vw/2-wd/2, 16, "Totally meow here", DTA_Alpha, (sin(level.time*8)/2)+0.5, DTA_VirtualWidth, vw, DTA_VirtualHeight, vh, 0);
+*/

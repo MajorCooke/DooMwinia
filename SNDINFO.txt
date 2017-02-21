@@ -1,0 +1,744 @@
+//==============================================================================
+// Weapons
+//==============================================================================
+
+Weapons/MeteorHitClose	"Sounds/Weapons/MeteorHitClose1.ogg"
+Weapons/MeteorHitFar	"Sounds/Weapons/MeteorHitFar1.ogg"
+Weapons/NukeDetonateFar	"Sounds/Weapons/NukeDetonateFar.ogg"
+Weapons/NukeDetonateNear	"Sounds/Weapons/NukeDetonateNear.ogg"
+Weapons/ablaster		"Sounds/Weapons/ablaster.ogg"
+Weapons/Airstrike/Alarm	"Sounds/Weapons/airstrike_alarm.ogg"
+
+$limit Weapons/Airsrike/Explode 0
+$random Weapons/Airsrike/Explode
+{	Weapons/Airsrike/Explode1	Weapons/Airsrike/Explode2
+	Weapons/Airsrike/Explode3	Weapons/Airsrike/Explode4
+	Weapons/Airsrike/Explode5
+}
+Weapons/Airsrike/Explode1	"Sounds/Weapons/airstrike_boom1.ogg"
+Weapons/Airsrike/Explode2	"Sounds/Weapons/airstrike_boom2.ogg"
+Weapons/Airsrike/Explode3	"Sounds/Weapons/airstrike_boom3.ogg"
+Weapons/Airsrike/Explode4	"Sounds/Weapons/airstrike_boom4.ogg"
+Weapons/Airsrike/Explode5	"Sounds/Weapons/airstrike_boom5.ogg"
+
+Weapons/Airstrike/Drop		"Sounds/Weapons/airstrike_drop.ogg"
+Weapons/Airstrike/Hover		"Sounds/Weapons/airstrike_hover2.ogg"
+
+$limit Weapons/Grenade/Explode 0
+$random Weapons/Grenade/Explode
+{	Weapons/Grenade/Explode1	Weapons/Grenade/Explode2
+	Weapons/Grenade/Explode3	Weapons/Grenade/Explode4
+	Weapons/Grenade/Explode5
+}
+Weapons/Grenade/Explode1	"Sounds/Weapons/gren_boom1.ogg"
+Weapons/Grenade/Explode2	"Sounds/Weapons/gren_boom2.ogg"
+Weapons/Grenade/Explode3	"Sounds/Weapons/gren_boom3.ogg"
+Weapons/Grenade/Explode4	"Sounds/Weapons/gren_boom4.ogg"
+Weapons/Grenade/Explode5	"Sounds/Weapons/gren_boom5.ogg"
+
+$limit Weapons/Grenade/Bounce 0
+$random Weapons/Grenade/Bounce
+{	Weapons/Grenade/Bounce1	Weapons/Grenade/Bounce2
+	Weapons/Grenade/Bounce3	Weapons/Grenade/Bounce4
+	Weapons/Grenade/Bounce5	Weapons/Grenade/Bounce6
+}
+Weapons/Grenade/Bounce1		"Sounds/Weapons/gren_bounce1.ogg"
+Weapons/Grenade/Bounce2		"Sounds/Weapons/gren_bounce2.ogg"
+Weapons/Grenade/Bounce3		"Sounds/Weapons/gren_bounce3.ogg"
+Weapons/Grenade/Bounce4		"Sounds/Weapons/gren_bounce4.ogg"
+Weapons/Grenade/Bounce5		"Sounds/Weapons/gren_bounce5.ogg"
+Weapons/Grenade/Bounce6		"Sounds/Weapons/gren_bounce6.ogg"
+
+$limit Weapons/Grenade/Fire 0
+$random Weapons/Grenade/Fire
+{	Weapons/Grenade/Fire1	Weapons/Grenade/Fire2	Weapons/Grenade/Fire3
+	Weapons/Grenade/Fire4	Weapons/Grenade/Fire5
+}
+Weapons/Grenade/Fire1		"Sounds/Weapons/gren_fire1.ogg"
+Weapons/Grenade/Fire2		"Sounds/Weapons/gren_fire2.ogg"
+Weapons/Grenade/Fire3		"Sounds/Weapons/gren_fire3.ogg"
+Weapons/Grenade/Fire4		"Sounds/Weapons/gren_fire4.ogg"
+Weapons/Grenade/Fire5		"Sounds/Weapons/gren_fire5.ogg"
+
+Weapons/Grenade/Beep		"Sounds/Weapons/grenade_beep.ogg"
+Weapons/Grenade/Ready		"Sounds/Weapons/grenade_return3.ogg"
+Weapons/Hypnotize			"Sounds/Weapons/hypno_loop_run.ogg"
+
+$limit Weapons/Laser/Building 0
+$random Weapons/Laser/Building
+{	Weapons/Laser/Building1	Weapons/Laser/Building2	Weapons/Laser/Building3
+	Weapons/Laser/Building4	Weapons/Laser/Building5	Weapons/Laser/Building6
+	Weapons/Laser/Building7	Weapons/Laser/Building8	Weapons/Laser/Building9
+	Weapons/Laser/Building10
+}
+Weapons/Laser/Building1		"Sounds/Weapons/laser_hit_building1.ogg"
+Weapons/Laser/Building2		"Sounds/Weapons/laser_hit_building2.ogg"
+Weapons/Laser/Building3		"Sounds/Weapons/laser_hit_building3.ogg"
+Weapons/Laser/Building4		"Sounds/Weapons/laser_hit_building4.ogg"
+Weapons/Laser/Building5		"Sounds/Weapons/laser_hit_building5.ogg"
+Weapons/Laser/Building6		"Sounds/Weapons/laser_hit_building6.ogg"
+Weapons/Laser/Building7		"Sounds/Weapons/laser_hit_building7.ogg"
+Weapons/Laser/Building8		"Sounds/Weapons/laser_hit_building8.ogg"
+Weapons/Laser/Building9		"Sounds/Weapons/laser_hit_building9.ogg"
+Weapons/Laser/Building10	"Sounds/Weapons/laser_hit_building10.ogg"
+
+$limit Weapons/Laser/Ent 0
+$random Weapons/Laser/Ent
+{	Weapons/Laser/Ent1	Weapons/Laser/Ent2	Weapons/Laser/Ent3	Weapons/Laser/Ent4
+	Weapons/Laser/Ent5	Weapons/Laser/Ent6	Weapons/Laser/Ent7	Weapons/Laser/Ent8
+}
+Weapons/Laser/Ent1				"Sounds/Weapons/laser_hitent1.ogg"
+Weapons/Laser/Ent2				"Sounds/Weapons/laser_hitent2.ogg"
+Weapons/Laser/Ent3				"Sounds/Weapons/laser_hitent3.ogg"
+Weapons/Laser/Ent4				"Sounds/Weapons/laser_hitent4.ogg"
+Weapons/Laser/Ent5				"Sounds/Weapons/laser_hitent5.ogg"
+Weapons/Laser/Ent6				"Sounds/Weapons/laser_hitent6.ogg"
+Weapons/Laser/Ent7				"Sounds/Weapons/laser_hitent7.ogg"
+Weapons/Laser/Ent8				"Sounds/Weapons/laser_hitent8.ogg"
+
+$limit Weapons/Laser/Grid 0
+$random Weapons/Laser/Grid
+{	Weapons/Laser/Grid1	Weapons/Laser/Grid2	Weapons/Laser/Grid3	Weapons/Laser/Grid4
+	Weapons/Laser/Grid5	Weapons/Laser/Grid6	Weapons/Laser/Grid7	Weapons/Laser/Grid8
+	Weapons/Laser/Grid9
+}
+Weapons/Laser/Grid1				"Sounds/Weapons/laser_hitgrid1.ogg"
+Weapons/Laser/Grid2				"Sounds/Weapons/laser_hitgrid2.ogg"
+Weapons/Laser/Grid3				"Sounds/Weapons/laser_hitgrid3.ogg"
+Weapons/Laser/Grid4				"Sounds/Weapons/laser_hitgrid4.ogg"
+Weapons/Laser/Grid5				"Sounds/Weapons/laser_hitgrid5.ogg"
+Weapons/Laser/Grid6				"Sounds/Weapons/laser_hitgrid6.ogg"
+Weapons/Laser/Grid7				"Sounds/Weapons/laser_hitgrid7.ogg"
+Weapons/Laser/Grid8				"Sounds/Weapons/laser_hitgrid8.ogg"
+Weapons/Laser/Grid9				"Sounds/Weapons/laser_hitgrid9.ogg"
+
+$limit Weapons/Laser/Fire 0
+$random Weapons/Laser/Fire
+{	Weapons/Laser1	Weapons/Laser2	Weapons/Laser3	Weapons/Laser4	Weapons/Laser5
+	Weapons/Laser6	Weapons/Laser7	Weapons/Laser8	Weapons/Laser9	Weapons/Laser10
+	Weapons/Laser11	Weapons/Laser12	Weapons/Laser13	Weapons/Laser14	Weapons/Laser15
+	Weapons/Laser16	Weapons/Laser17	Weapons/Laser18	Weapons/Laser19	Weapons/Laser20
+	Weapons/Laser21	Weapons/Laser22	Weapons/Laser23	Weapons/Laser24
+}
+Weapons/Laser1			"Sounds/Weapons/laser1.ogg"
+Weapons/Laser2			"Sounds/Weapons/laser2.ogg"
+Weapons/Laser3			"Sounds/Weapons/laser3.ogg"
+Weapons/Laser4			"Sounds/Weapons/laser4.ogg"
+Weapons/Laser5			"Sounds/Weapons/laser5.ogg"
+Weapons/Laser6			"Sounds/Weapons/laser6.ogg"
+Weapons/Laser7			"Sounds/Weapons/laser7.ogg"
+Weapons/Laser8			"Sounds/Weapons/laser8.ogg"
+Weapons/Laser9			"Sounds/Weapons/laser9.ogg"
+Weapons/Laser10			"Sounds/Weapons/laser10.ogg"
+Weapons/Laser11			"Sounds/Weapons/laser11.ogg"
+Weapons/Laser12			"Sounds/Weapons/laser12.ogg"
+Weapons/Laser13			"Sounds/Weapons/laser13.ogg"
+Weapons/Laser14			"Sounds/Weapons/laser14.ogg"
+Weapons/Laser15			"Sounds/Weapons/laser15.ogg"
+Weapons/Laser16			"Sounds/Weapons/laser16.ogg"
+Weapons/Laser17			"Sounds/Weapons/laser17.ogg"
+Weapons/Laser18			"Sounds/Weapons/laser18.ogg"
+Weapons/Laser19			"Sounds/Weapons/laser19.ogg"
+Weapons/Laser20			"Sounds/Weapons/laser20.ogg"
+Weapons/Laser21			"Sounds/Weapons/laser21.ogg"
+Weapons/Laser22			"Sounds/Weapons/laser22.ogg"
+Weapons/Laser23			"Sounds/Weapons/laser23.ogg"
+Weapons/Laser24			"Sounds/Weapons/laser24.ogg"
+
+$limit Weapons/Rocket/Explode 0
+$random Weapons/Rocket/Explode
+{	Weapons/Rocket/Explode1	Weapons/Rocket/Explode2	Weapons/Rocket/Explode3
+	Weapons/Rocket/Explode4
+}
+Weapons/Rocket/Explode1	"Sounds/Weapons/rocket_boom1.ogg"
+Weapons/Rocket/Explode2	"Sounds/Weapons/rocket_boom2.ogg"
+Weapons/Rocket/Explode3	"Sounds/Weapons/rocket_boom3.ogg"
+Weapons/Rocket/Explode4	"Sounds/Weapons/rocket_boom4.ogg"
+
+Weapons/Rocket/Loop		"Sounds/Weapons/rocket_fire4_run.ogg"
+Weapons/Rocket/Fire		"Sounds/Weapons/rocketlauncher.ogg"
+
+
+//==============================================================================
+//==============================================================================
+// Darwinians
+//==============================================================================
+//==============================================================================
+// Good fucking scott this list is huge!
+
+$limit Darwinian/Attack 0
+$random Darwinian/Attack
+{	
+	Darwinian/Attack1	Darwinian/Attack2	Darwinian/Attack3	Darwinian/Attack4	Darwinian/Attack5
+	Darwinian/Attack6	Darwinian/Attack7	Darwinian/Attack8	Darwinian/Attack9	Darwinian/Attack10
+	Darwinian/Attack11	Darwinian/Attack12	Darwinian/Attack13	Darwinian/Attack14	Darwinian/Attack15
+	Darwinian/Attack16	Darwinian/Attack17	Darwinian/Attack18	Darwinian/Attack19	Darwinian/Attack20
+	Darwinian/Attack21	Darwinian/Attack22	Darwinian/Attack23	Darwinian/Attack24	Darwinian/Attack25
+	Darwinian/Attack26	Darwinian/Attack27	Darwinian/Attack28	Darwinian/Attack29	Darwinian/Attack30
+	Darwinian/Attack31	Darwinian/Attack32	Darwinian/Attack33	Darwinian/Attack34	Darwinian/Attack35
+	Darwinian/Attack36	Darwinian/Attack37	Darwinian/Attack38	Darwinian/Attack39	Darwinian/Attack30
+	Darwinian/Attack41	Darwinian/Attack42	Darwinian/Attack43	Darwinian/Attack44	Darwinian/Attack45
+	Darwinian/Attack46
+}
+Darwinian/Attack1		"Sounds/Darwinian/Attack1.ogg"
+Darwinian/Attack2		"Sounds/Darwinian/Attack2.ogg"
+Darwinian/Attack3		"Sounds/Darwinian/Attack3.ogg"
+Darwinian/Attack4		"Sounds/Darwinian/Attack4.ogg"
+Darwinian/Attack5		"Sounds/Darwinian/Attack5.ogg"
+Darwinian/Attack6		"Sounds/Darwinian/Attack6.ogg"
+Darwinian/Attack7		"Sounds/Darwinian/Attack7.ogg"
+Darwinian/Attack8		"Sounds/Darwinian/Attack8.ogg"
+Darwinian/Attack9		"Sounds/Darwinian/Attack9.ogg"
+Darwinian/Attack10		"Sounds/Darwinian/Attack10.ogg"
+Darwinian/Attack11		"Sounds/Darwinian/Attack11.ogg"
+Darwinian/Attack12		"Sounds/Darwinian/Attack12.ogg"
+Darwinian/Attack13		"Sounds/Darwinian/Attack13.ogg"
+Darwinian/Attack14		"Sounds/Darwinian/Attack14.ogg"
+Darwinian/Attack15		"Sounds/Darwinian/Attack15.ogg"
+Darwinian/Attack16		"Sounds/Darwinian/Attack16.ogg"
+Darwinian/Attack17		"Sounds/Darwinian/Attack17.ogg"
+Darwinian/Attack18		"Sounds/Darwinian/Attack18.ogg"
+Darwinian/Attack19		"Sounds/Darwinian/Attack19.ogg"
+Darwinian/Attack20		"Sounds/Darwinian/Attack20.ogg"
+Darwinian/Attack21		"Sounds/Darwinian/Attack21.ogg"
+Darwinian/Attack22		"Sounds/Darwinian/Attack22.ogg"
+Darwinian/Attack23		"Sounds/Darwinian/Attack23.ogg"
+Darwinian/Attack24		"Sounds/Darwinian/Attack24.ogg"
+Darwinian/Attack25		"Sounds/Darwinian/Attack25.ogg"
+Darwinian/Attack26		"Sounds/Darwinian/Attack26.ogg"
+Darwinian/Attack27		"Sounds/Darwinian/Attack27.ogg"
+Darwinian/Attack28		"Sounds/Darwinian/Attack28.ogg"
+Darwinian/Attack29		"Sounds/Darwinian/Attack29.ogg"
+Darwinian/Attack30		"Sounds/Darwinian/Attack30.ogg"
+Darwinian/Attack31		"Sounds/Darwinian/Attack31.ogg"
+Darwinian/Attack32		"Sounds/Darwinian/Attack32.ogg"
+Darwinian/Attack33		"Sounds/Darwinian/Attack33.ogg"
+Darwinian/Attack34		"Sounds/Darwinian/Attack34.ogg"
+Darwinian/Attack35		"Sounds/Darwinian/Attack35.ogg"
+Darwinian/Attack36		"Sounds/Darwinian/Attack36.ogg"
+Darwinian/Attack37		"Sounds/Darwinian/Attack37.ogg"
+Darwinian/Attack38		"Sounds/Darwinian/Attack38.ogg"
+Darwinian/Attack39		"Sounds/Darwinian/Attack39.ogg"
+Darwinian/Attack40		"Sounds/Darwinian/Attack40.ogg"
+Darwinian/Attack41		"Sounds/Darwinian/Attack41.ogg"
+Darwinian/Attack42		"Sounds/Darwinian/Attack42.ogg"
+Darwinian/Attack43		"Sounds/Darwinian/Attack43.ogg"
+Darwinian/Attack44		"Sounds/Darwinian/Attack44.ogg"
+Darwinian/Attack45		"Sounds/Darwinian/Attack45.ogg"
+Darwinian/Attack46		"Sounds/Darwinian/Attack46.ogg"
+
+$limit Darwinian/Attention 0
+$random Darwinian/Attention
+{	Darwinian/Attention1	Darwinian/Attention2	Darwinian/Attention3	Darwinian/Attention4	}
+Darwinian/Attention1	"Sounds/Darwinian/Attention1.ogg"
+Darwinian/Attention2	"Sounds/Darwinian/Attention2.ogg"
+Darwinian/Attention3	"Sounds/Darwinian/Attention3.ogg"
+Darwinian/Attention4	"Sounds/Darwinian/Attention4.ogg"
+
+$limit Darwinian/Aye 0
+$random Darwinian/Aye
+{	Darwinian/Aye1	Darwinian/Aye2	Darwinian/Aye3	Darwinian/Aye4	Darwinian/Aye5
+	Darwinian/Aye6	Darwinian/Aye7	Darwinian/Aye8	Darwinian/Aye9	}
+Darwinian/Aye1			"Sounds/Darwinian/Aye1.ogg"
+Darwinian/Aye2			"Sounds/Darwinian/Aye2.ogg"
+Darwinian/Aye3			"Sounds/Darwinian/Aye3.ogg"
+Darwinian/Aye4			"Sounds/Darwinian/Aye4.ogg"
+Darwinian/Aye5			"Sounds/Darwinian/Aye5.ogg"
+Darwinian/Aye6			"Sounds/Darwinian/Aye6.ogg"
+Darwinian/Aye7			"Sounds/Darwinian/Aye7.ogg"
+Darwinian/Aye8			"Sounds/Darwinian/Aye8.ogg"
+Darwinian/Aye9			"Sounds/Darwinian/Aye9.ogg"
+
+$limit Darwinian/Carry 0
+$random Darwinian/Carry
+{	Darwinian/Carry1	Darwinian/Carry2	Darwinian/Carry3	Darwinian/Carry4	}
+
+Darwinian/Carry1		"Sounds/Darwinian/Carry1.ogg"
+Darwinian/Carry2		"Sounds/Darwinian/Carry2.ogg"
+Darwinian/Carry3		"Sounds/Darwinian/Carry3.ogg"
+Darwinian/Carry4		"Sounds/Darwinian/Carry4.ogg"
+
+$limit Darwinian/Carrying 0
+$random Darwinian/Carrying
+{	Darwinian/Carrying1	Darwinian/Carrying2	Darwinian/Carrying3	Darwinian/Carrying4	}
+Darwinian/Carrying1		"Sounds/Darwinian/Carrying3a.ogg"
+Darwinian/Carrying2		"Sounds/Darwinian/Carrying3b.ogg"
+Darwinian/Carrying3		"Sounds/Darwinian/Carrying3c.ogg"
+Darwinian/Carrying4		"Sounds/Darwinian/Carrying3d.ogg"
+
+$limit Darwinian/DSelect 0
+$random Darwinian/DSelect
+{	Darwinian/DSelect1	Darwinian/DSelect2	Darwinian/DSelect3	Darwinian/DSelect4	Darwinian/DSelect5
+	Darwinian/DSelect6	Darwinian/DSelect7	Darwinian/DSelect8	Darwinian/DSelect9	Darwinian/DSelect10	}
+Darwinian/DSelect1		"Sounds/Darwinian/DSelect1.ogg"
+Darwinian/DSelect2		"Sounds/Darwinian/DSelect2.ogg"
+Darwinian/DSelect3		"Sounds/Darwinian/DSelect3.ogg"
+Darwinian/DSelect4		"Sounds/Darwinian/DSelect4.ogg"
+Darwinian/DSelect5		"Sounds/Darwinian/DSelect5.ogg"
+Darwinian/DSelect6		"Sounds/Darwinian/DSelect6.ogg"
+Darwinian/DSelect7		"Sounds/Darwinian/DSelect7.ogg"
+Darwinian/DSelect8		"Sounds/Darwinian/DSelect8.ogg"
+Darwinian/DSelect9		"Sounds/Darwinian/DSelect9.ogg"
+Darwinian/DSelect10		"Sounds/Darwinian/DSelect10.ogg"
+
+$limit Darwinian/DStrain 0
+$random Darwinian/DStrain
+{	Darwinian/DStrain1	Darwinian/DStrain2	Darwinian/DStrain3	Darwinian/DStrain4	Darwinian/DStrain5
+	Darwinian/DStrain6	Darwinian/DStrain7	Darwinian/DStrain8	Darwinian/DStrain9	Darwinian/DStrain10
+	Darwinian/DStrain11	Darwinian/DStrain12	Darwinian/DStrain13	Darwinian/DStrain14	Darwinian/DStrain15
+	Darwinian/DStrain16	Darwinian/DStrain17
+}
+Darwinian/DStrain1		"Sounds/Darwinian/DStrain1.ogg"
+Darwinian/DStrain2		"Sounds/Darwinian/DStrain2.ogg"
+Darwinian/DStrain3		"Sounds/Darwinian/DStrain3.ogg"
+Darwinian/DStrain4		"Sounds/Darwinian/DStrain4.ogg"
+Darwinian/DStrain5		"Sounds/Darwinian/DStrain5.ogg"
+Darwinian/DStrain6		"Sounds/Darwinian/DStrain6.ogg"
+Darwinian/DStrain7		"Sounds/Darwinian/DStrain7.ogg"
+Darwinian/DStrain8		"Sounds/Darwinian/DStrain8.ogg"
+Darwinian/DStrain9		"Sounds/Darwinian/DStrain9.ogg"
+Darwinian/DStrain10		"Sounds/Darwinian/DStrain10.ogg"
+Darwinian/DStrain11		"Sounds/Darwinian/DStrain11.ogg"
+Darwinian/DStrain12		"Sounds/Darwinian/DStrain12.ogg"
+Darwinian/DStrain13		"Sounds/Darwinian/DStrain13.ogg"
+Darwinian/DStrain14		"Sounds/Darwinian/DStrain14.ogg"
+Darwinian/DStrain15		"Sounds/Darwinian/DStrain15.ogg"
+Darwinian/DStrain16		"Sounds/Darwinian/DStrain16.ogg"
+Darwinian/DStrain17		"Sounds/Darwinian/DStrain17.ogg"
+
+$limit Darwinian/Hit 0
+$random Darwinian/Hit
+{	Darwinian/Hit1	Darwinian/Hit2	Darwinian/Hit3	Darwinian/Hit4	Darwinian/Hit5
+	Darwinian/Hit6	Darwinian/Hit7	Darwinian/Hit8	Darwinian/Hit9	Darwinian/Hit10
+	Darwinian/Hit11	Darwinian/Hit12	Darwinian/Hit13	Darwinian/Hit14	Darwinian/Hit15
+	Darwinian/Hit16	Darwinian/Hit17	Darwinian/Hit18	Darwinian/Hit19	Darwinian/Hit20
+	Darwinian/Hit21	Darwinian/Hit22	Darwinian/Hit23	Darwinian/Hit24	Darwinian/Hit25
+	Darwinian/Hit26	Darwinian/Hit27	Darwinian/Hit28	Darwinian/Hit29	Darwinian/Hit30
+	Darwinian/Hit31	Darwinian/Hit32	Darwinian/Hit33	Darwinian/Hit34	Darwinian/Hit35
+	Darwinian/Hit36
+}
+Darwinian/Hit1			"Sounds/Darwinian/Hit1.ogg"
+Darwinian/Hit2			"Sounds/Darwinian/Hit2.ogg"
+Darwinian/Hit3			"Sounds/Darwinian/Hit3.ogg"
+Darwinian/Hit4			"Sounds/Darwinian/Hit4.ogg"
+Darwinian/Hit5			"Sounds/Darwinian/Hit5.ogg"
+Darwinian/Hit6			"Sounds/Darwinian/Hit6.ogg"
+Darwinian/Hit7			"Sounds/Darwinian/Hit7.ogg"
+Darwinian/Hit8			"Sounds/Darwinian/Hit8.ogg"
+Darwinian/Hit9			"Sounds/Darwinian/Hit9.ogg"
+Darwinian/Hit10			"Sounds/Darwinian/Hit10.ogg"
+Darwinian/Hit11			"Sounds/Darwinian/Hit11.ogg"
+Darwinian/Hit12			"Sounds/Darwinian/Hit12.ogg"
+Darwinian/Hit13			"Sounds/Darwinian/Hit13.ogg"
+Darwinian/Hit14			"Sounds/Darwinian/Hit14.ogg"
+Darwinian/Hit15			"Sounds/Darwinian/Hit15.ogg"
+Darwinian/Hit16			"Sounds/Darwinian/Hit16.ogg"
+Darwinian/Hit17			"Sounds/Darwinian/Hit17.ogg"
+Darwinian/Hit18			"Sounds/Darwinian/Hit18.ogg"
+Darwinian/Hit19			"Sounds/Darwinian/Hit19.ogg"
+Darwinian/Hit20			"Sounds/Darwinian/Hit20.ogg"
+Darwinian/Hit21			"Sounds/Darwinian/Hit21.ogg"
+Darwinian/Hit22			"Sounds/Darwinian/Hit22.ogg"
+Darwinian/Hit23			"Sounds/Darwinian/Hit23.ogg"
+Darwinian/Hit24			"Sounds/Darwinian/Hit24.ogg"
+Darwinian/Hit25			"Sounds/Darwinian/Hit25.ogg"
+Darwinian/Hit26			"Sounds/Darwinian/Hit26.ogg"
+Darwinian/Hit27			"Sounds/Darwinian/Hit27.ogg"
+Darwinian/Hit28			"Sounds/Darwinian/Hit28.ogg"
+Darwinian/Hit29			"Sounds/Darwinian/Hit29.ogg"
+Darwinian/Hit30			"Sounds/Darwinian/Hit30.ogg"
+Darwinian/Hit31			"Sounds/Darwinian/Hit31.ogg"
+Darwinian/Hit32			"Sounds/Darwinian/Hit32.ogg"
+Darwinian/Hit33			"Sounds/Darwinian/Hit33.ogg"
+Darwinian/Hit34			"Sounds/Darwinian/Hit34.ogg"
+Darwinian/Hit35			"Sounds/Darwinian/Hit35.ogg"
+Darwinian/Hit36			"Sounds/Darwinian/Hit36.ogg"
+
+$limit Darwinian/Retreat 0
+$random Darwinian/Retreat
+{	Darwinian/Retreat1	Darwinian/Retreat2	Darwinian/Retreat3	Darwinian/Retreat4	Darwinian/Retreat5
+	Darwinian/Retreat6	Darwinian/Retreat7	Darwinian/Retreat8	Darwinian/Retreat9	Darwinian/Retreat10
+	Darwinian/Retreat11	Darwinian/Retreat12	Darwinian/Retreat13	Darwinian/Retreat14	Darwinian/Retreat15
+	Darwinian/Retreat16	Darwinian/Retreat17	Darwinian/Retreat18	Darwinian/Retreat19	Darwinian/Retreat20
+	Darwinian/Retreat21	Darwinian/Retreat22	Darwinian/Retreat23	Darwinian/Retreat24	Darwinian/Retreat25
+	Darwinian/Retreat26
+}
+Darwinian/Retreat1		"Sounds/Darwinian/Retreat1.ogg"
+Darwinian/Retreat2		"Sounds/Darwinian/Retreat2.ogg"
+Darwinian/Retreat3		"Sounds/Darwinian/Retreat3.ogg"
+Darwinian/Retreat4		"Sounds/Darwinian/Retreat4.ogg"
+Darwinian/Retreat5		"Sounds/Darwinian/Retreat5.ogg"
+Darwinian/Retreat6		"Sounds/Darwinian/Retreat6.ogg"
+Darwinian/Retreat7		"Sounds/Darwinian/Retreat7.ogg"
+Darwinian/Retreat8		"Sounds/Darwinian/Retreat8.ogg"
+Darwinian/Retreat9		"Sounds/Darwinian/Retreat9.ogg"
+Darwinian/Retreat10		"Sounds/Darwinian/Retreat10.ogg"
+Darwinian/Retreat11		"Sounds/Darwinian/Retreat11.ogg"
+Darwinian/Retreat12		"Sounds/Darwinian/Retreat12.ogg"
+Darwinian/Retreat13		"Sounds/Darwinian/Retreat13.ogg"
+Darwinian/Retreat14		"Sounds/Darwinian/Retreat14.ogg"
+Darwinian/Retreat15		"Sounds/Darwinian/Retreat15.ogg"
+Darwinian/Retreat16		"Sounds/Darwinian/Retreat16.ogg"
+Darwinian/Retreat17		"Sounds/Darwinian/Retreat17.ogg"
+Darwinian/Retreat18		"Sounds/Darwinian/Retreat18.ogg"
+Darwinian/Retreat19		"Sounds/Darwinian/Retreat19.ogg"
+Darwinian/Retreat20		"Sounds/Darwinian/Retreat20.ogg"
+Darwinian/Retreat21		"Sounds/Darwinian/Retreat21.ogg"
+Darwinian/Retreat22		"Sounds/Darwinian/Retreat22.ogg"
+Darwinian/Retreat23		"Sounds/Darwinian/Retreat23.ogg"
+Darwinian/Retreat24		"Sounds/Darwinian/Retreat24.ogg"
+Darwinian/Retreat25		"Sounds/Darwinian/Retreat25.ogg"
+Darwinian/Retreat26		"Sounds/Darwinian/Retreat26.ogg"
+
+$limit Darwinian/LaserCock 0
+$random Darwinian/LaserCock
+{	Darwinian/LaserCock1	Darwinian/LaserCock2	Darwinian/LaserCock3
+	Darwinian/LaserCock4	Darwinian/LaserCock5	Darwinian/LaserCock6
+	Darwinian/LaserCock7	Darwinian/LaserCock8	Darwinian/LaserCock9
+	Darwinian/LaserCock10
+}
+Darwinian/LaserCock1	"Sounds/Darwinian/Laser_Cock1.ogg"
+Darwinian/LaserCock2	"Sounds/Darwinian/Laser_Cock2.ogg"
+Darwinian/LaserCock3	"Sounds/Darwinian/Laser_Cock3.ogg"
+Darwinian/LaserCock4	"Sounds/Darwinian/Laser_Cock4.ogg"
+Darwinian/LaserCock5	"Sounds/Darwinian/Laser_Cock5.ogg"
+Darwinian/LaserCock6	"Sounds/Darwinian/Laser_Cock6.ogg"
+Darwinian/LaserCock7	"Sounds/Darwinian/Laser_Cock7.ogg"
+Darwinian/LaserCock8	"Sounds/Darwinian/Laser_Cock8.ogg"
+Darwinian/LaserCock9	"Sounds/Darwinian/Laser_Cock9.ogg"
+Darwinian/LaserCock10	"Sounds/Darwinian/Laser_Cock10.ogg"
+
+$limit Darwinian/LaserReload 0
+$random Darwinian/LaserReload
+{	Darwinian/LaserReload1	Darwinian/LaserReload2	Darwinian/LaserReload3
+	Darwinian/LaserReload4	Darwinian/LaserReload5
+}
+Darwinian/LaserReload1	"Sounds/Darwinian/Laser_Reload1.ogg"
+Darwinian/LaserReload2	"Sounds/Darwinian/Laser_Reload2.ogg"
+Darwinian/LaserReload3	"Sounds/Darwinian/Laser_Reload3.ogg"
+Darwinian/LaserReload4	"Sounds/Darwinian/Laser_Reload4.ogg"
+Darwinian/LaserReload5	"Sounds/Darwinian/Laser_Reload5.ogg"
+
+$limit Darwinian/LaserHitDarwinian 0
+$random Darwinian/LaserHitDarwinian
+{	
+	Darwinian/LHD1	Darwinian/LHD2	Darwinian/LHD3	Darwinian/LHD4	Darwinian/LHD5
+	Darwinian/LHD6	Darwinian/LHD7	Darwinian/LHD8	Darwinian/LHD9	Darwinian/LHD10
+	Darwinian/LHD11	Darwinian/LHD12	Darwinian/LHD13	Darwinian/LHD14	Darwinian/LHD15
+	Darwinian/LHD16	Darwinian/LHD17	Darwinian/LHD18	Darwinian/LHD19
+}
+Darwinian/LHD1			"Sounds/Darwinian/LaserHitDarwinian1.ogg"
+Darwinian/LHD2			"Sounds/Darwinian/LaserHitDarwinian2.ogg"
+Darwinian/LHD3			"Sounds/Darwinian/LaserHitDarwinian3.ogg"
+Darwinian/LHD4			"Sounds/Darwinian/LaserHitDarwinian4.ogg"
+Darwinian/LHD5			"Sounds/Darwinian/LaserHitDarwinian5.ogg"
+Darwinian/LHD6			"Sounds/Darwinian/LaserHitDarwinian6.ogg"
+Darwinian/LHD7			"Sounds/Darwinian/LaserHitDarwinian7.ogg"
+Darwinian/LHD8			"Sounds/Darwinian/LaserHitDarwinian8.ogg"
+Darwinian/LHD9			"Sounds/Darwinian/LaserHitDarwinian9.ogg"
+Darwinian/LHD10			"Sounds/Darwinian/LaserHitDarwinian10.ogg"
+Darwinian/LHD11			"Sounds/Darwinian/LaserHitDarwinian11.ogg"
+Darwinian/LHD12			"Sounds/Darwinian/LaserHitDarwinian12.ogg"
+Darwinian/LHD13			"Sounds/Darwinian/LaserHitDarwinian13.ogg"
+Darwinian/LHD14			"Sounds/Darwinian/LaserHitDarwinian14.ogg"
+Darwinian/LHD15			"Sounds/Darwinian/LaserHitDarwinian15.ogg"
+Darwinian/LHD16			"Sounds/Darwinian/LaserHitDarwinian16.ogg"
+Darwinian/LHD17			"Sounds/Darwinian/LaserHitDarwinian17.ogg"
+Darwinian/LHD18			"Sounds/Darwinian/LaserHitDarwinian18.ogg"
+Darwinian/LHD19			"Sounds/Darwinian/LaserHitDarwinian19.ogg"
+
+$limit Darwinian/Marching 0
+$random Darwinian/Marching
+{	Darwinian/Marching1	Darwinian/Marching2	Darwinian/Marching3	
+	Darwinian/Marching4	Darwinian/Marching5
+}
+Darwinian/Marching1		"Sounds/Darwinian/Marching1.ogg"
+Darwinian/Marching2		"Sounds/Darwinian/Marching2.ogg"
+Darwinian/Marching3		"Sounds/Darwinian/Marching3.ogg"
+Darwinian/Marching4		"Sounds/Darwinian/Marching4.ogg"
+Darwinian/Marching5		"Sounds/Darwinian/Marching5.ogg"
+
+$limit Darwinian/YesSir 0
+$random Darwinian/YesSir
+{	Darwinian/YesSir1	Darwinian/YesSir2	Darwinian/YesSir3	Darwinian/YesSir4
+	Darwinian/YesSir5	Darwinian/YesSir6	Darwinian/YesSir7	Darwinian/YesSir8
+	Darwinian/YesSir9	Darwinian/YesSir10	Darwinian/YesSir11	Darwinian/YesSir12
+}
+Darwinian/YesSir1		"Sounds/Darwinian/YesSir1.ogg"
+Darwinian/YesSir2		"Sounds/Darwinian/YesSir2.ogg"
+Darwinian/YesSir3		"Sounds/Darwinian/YesSir3.ogg"
+Darwinian/YesSir4		"Sounds/Darwinian/YesSir4.ogg"
+Darwinian/YesSir5		"Sounds/Darwinian/YesSir5.ogg"
+Darwinian/YesSir6		"Sounds/Darwinian/YesSir6.ogg"
+Darwinian/YesSir7		"Sounds/Darwinian/YesSir7.ogg"
+Darwinian/YesSir8		"Sounds/Darwinian/YesSir8.ogg"
+Darwinian/YesSir9		"Sounds/Darwinian/YesSir9.ogg"
+Darwinian/YesSir10		"Sounds/Darwinian/YesSir10.ogg"
+Darwinian/YesSir11		"Sounds/Darwinian/YesSir11.ogg"
+Darwinian/YesSir12		"Sounds/Darwinian/YesSir12.ogg"
+
+$limit Darwinian/Choir 0
+$random Darwinian/Choir
+{	Darwinian/Choir1	Darwinian/Choir2	Darwinian/Choir3	Darwinian/Choir4
+	Darwinian/Choir5	Darwinian/Choir6
+}
+Darwinian/Choir1		"Sounds/Darwinian/Choir1.ogg"
+Darwinian/Choir2		"Sounds/Darwinian/Choir2.ogg"
+Darwinian/Choir3		"Sounds/Darwinian/Choir3.ogg"
+Darwinian/Choir4		"Sounds/Darwinian/Choir4.ogg"
+Darwinian/Choir5		"Sounds/Darwinian/Choir5.ogg"
+Darwinian/Choir6		"Sounds/Darwinian/Choir6.ogg"
+
+$limit Darwinian/BurnDeath 0
+$random Darwinian/BurnDeath
+{	Darwinian/BurnDeath1	Darwinian/BurnDeath2	Darwinian/BurnDeath3
+	Darwinian/BurnDeath4	Darwinian/BurnDeath5	Darwinian/BurnDeath6
+	Darwinian/BurnDeath7
+}
+Darwinian/BurnDeath1	"Sounds/Darwinian/darwin_burn_death1.ogg"
+Darwinian/BurnDeath2	"Sounds/Darwinian/darwin_burn_death2.ogg"
+Darwinian/BurnDeath3	"Sounds/Darwinian/darwin_burn_death3.ogg"
+Darwinian/BurnDeath4	"Sounds/Darwinian/darwin_burn_death4.ogg"
+Darwinian/BurnDeath5	"Sounds/Darwinian/darwin_burn_death5.ogg"
+Darwinian/BurnDeath6	"Sounds/Darwinian/darwin_burn_death6.ogg"
+Darwinian/BurnDeath7	"Sounds/Darwinian/darwin_burn_death7.ogg"
+
+$limit Darwinian/Create 0
+$random Darwinian/Create
+{	Darwinian/Create1	Darwinian/Create2	Darwinian/Create3	Darwinian/Create4
+	Darwinian/Create5	Darwinian/Create6	Darwinian/Create7	Darwinian/Create8
+	Darwinian/Create9	Darwinian/Create10	Darwinian/Create11	Darwinian/Create12
+	Darwinian/Create13	Darwinian/Create14	Darwinian/Create15	Darwinian/Create16
+	Darwinian/Create17	Darwinian/Create18
+}
+Darwinian/Create1		"Sounds/Darwinian/darwin_create1.ogg"
+Darwinian/Create2		"Sounds/Darwinian/darwin_create2.ogg"
+Darwinian/Create3		"Sounds/Darwinian/darwin_create3.ogg"
+Darwinian/Create4		"Sounds/Darwinian/darwin_create4.ogg"
+Darwinian/Create5		"Sounds/Darwinian/darwin_create5.ogg"
+Darwinian/Create6		"Sounds/Darwinian/darwin_create6.ogg"
+Darwinian/Create7		"Sounds/Darwinian/darwin_create7.ogg"
+Darwinian/Create8		"Sounds/Darwinian/darwin_create8.ogg"
+Darwinian/Create9		"Sounds/Darwinian/darwin_create9.ogg"
+Darwinian/Create10		"Sounds/Darwinian/darwin_create10.ogg"
+Darwinian/Create11		"Sounds/Darwinian/darwin_create11.ogg"
+Darwinian/Create12		"Sounds/Darwinian/darwin_create12.ogg"
+Darwinian/Create13		"Sounds/Darwinian/darwin_create13.ogg"
+Darwinian/Create14		"Sounds/Darwinian/darwin_create14.ogg"
+Darwinian/Create15		"Sounds/Darwinian/darwin_create15.ogg"
+Darwinian/Create16		"Sounds/Darwinian/darwin_create16.ogg"
+Darwinian/Create17		"Sounds/Darwinian/darwin_create17.ogg"
+Darwinian/Create18		"Sounds/Darwinian/darwin_create18.ogg"
+
+$limit Darwinian/Death 0
+$random Darwinian/Death
+{	Darwinian/Death1	Darwinian/Death2	Darwinian/Death3	Darwinian/Death4
+	Darwinian/Death5	Darwinian/Death6	Darwinian/Death7	Darwinian/Death9
+}
+Darwinian/Death1		"Sounds/Darwinian/darwin_death.ogg"
+Darwinian/Death2		"Sounds/Darwinian/darwin_death2.ogg"
+Darwinian/Death3		"Sounds/Darwinian/darwin_death3.ogg"
+Darwinian/Death4		"Sounds/Darwinian/darwin_death4.ogg"
+Darwinian/Death5		"Sounds/Darwinian/darwin_death5.ogg"
+Darwinian/Death6		"Sounds/Darwinian/darwin_death6.ogg"
+Darwinian/Death7		"Sounds/Darwinian/darwin_death7.ogg"
+Darwinian/Death9		"Sounds/Darwinian/darwin_death9.ogg"
+
+$limit Darwinian/Jump 0
+$random Darwinian/Jump
+{	Darwinian/Jump1	Darwinian/Jump2	Darwinian/Jump3	Darwinian/Jump4	Darwinian/Jump5
+	Darwinian/Jump6	Darwinian/Jump7	Darwinian/Jump8	Darwinian/Jump9
+}
+Darwinian/Jump1			"Sounds/Darwinian/darwin_jump1.ogg"
+Darwinian/Jump2			"Sounds/Darwinian/darwin_jump2.ogg"
+Darwinian/Jump3			"Sounds/Darwinian/darwin_jump3.ogg"
+Darwinian/Jump4			"Sounds/Darwinian/darwin_jump4.ogg"
+Darwinian/Jump5			"Sounds/Darwinian/darwin_jump5.ogg"
+Darwinian/Jump6			"Sounds/Darwinian/darwin_jump6.ogg"
+Darwinian/Jump7			"Sounds/Darwinian/darwin_jump7.ogg"
+Darwinian/Jump8			"Sounds/Darwinian/darwin_jump8.ogg"
+Darwinian/Jump9			"Sounds/Darwinian/darwin_jump9.ogg"
+
+$limit Darwinian/Damage 0
+$random Darwinian/Damage
+{	Darwinian/Damage1	Darwinian/Damage2	Darwinian/Damage3	Darwinian/Damage4
+	Darwinian/Damage5	Darwinian/Damage6	Darwinian/Damage7	Darwinian/Damage8
+	Darwinian/Damage9	Darwinian/Damage10	Darwinian/Damage11	Darwinian/Damage12
+	Darwinian/Damage13	Darwinian/Damage14	Darwinian/Damage15	Darwinian/Damage16
+	Darwinian/Damage17	Darwinian/Damage18
+}
+Darwinian/Damage1		"Sounds/Darwinian/darwin_losehealth1.ogg"
+Darwinian/Damage2		"Sounds/Darwinian/darwin_losehealth2.ogg"
+Darwinian/Damage3		"Sounds/Darwinian/darwin_losehealth3.ogg"
+Darwinian/Damage4		"Sounds/Darwinian/darwin_losehealth4.ogg"
+Darwinian/Damage5		"Sounds/Darwinian/darwin_losehealth5.ogg"
+Darwinian/Damage6		"Sounds/Darwinian/darwin_losehealth6.ogg"
+Darwinian/Damage7		"Sounds/Darwinian/darwin_losehealth7.ogg"
+Darwinian/Damage8		"Sounds/Darwinian/darwin_losehealth8.ogg"
+Darwinian/Damage9		"Sounds/Darwinian/darwin_losehealth9.ogg"
+Darwinian/Damage10		"Sounds/Darwinian/darwin_losehealth10.ogg"
+Darwinian/Damage11		"Sounds/Darwinian/darwin_losehealth11.ogg"
+Darwinian/Damage12		"Sounds/Darwinian/darwin_losehealth12.ogg"
+Darwinian/Damage13		"Sounds/Darwinian/darwin_losehealth13.ogg"
+Darwinian/Damage14		"Sounds/Darwinian/darwin_losehealth14.ogg"
+Darwinian/Damage15		"Sounds/Darwinian/darwin_losehealth15.ogg"
+Darwinian/Damage16		"Sounds/Darwinian/darwin_losehealth16.ogg"
+Darwinian/Damage17		"Sounds/Darwinian/darwin_losehealth17.ogg"
+Darwinian/Damage18		"Sounds/Darwinian/darwin_losehealth18.ogg"
+
+$limit Darwinian/OnFire 0
+$random Darwinian/OnFire
+{	Darwinian/OnFire1	Darwinian/OnFire2	Darwinian/OnFire3	Darwinian/OnFire4
+	Darwinian/OnFire5	Darwinian/OnFire6	Darwinian/OnFire7	Darwinian/OnFire8
+	Darwinian/OnFire9	Darwinian/OnFire10	Darwinian/OnFire11	Darwinian/OnFire12
+	Darwinian/OnFire13
+}
+Darwinian/OnFire1		"Sounds/Darwinian/darwin_on_fire1.ogg"
+Darwinian/OnFire2		"Sounds/Darwinian/darwin_on_fire2.ogg"
+Darwinian/OnFire3		"Sounds/Darwinian/darwin_on_fire3.ogg"
+Darwinian/OnFire4		"Sounds/Darwinian/darwin_on_fire4.ogg"
+Darwinian/OnFire5		"Sounds/Darwinian/darwin_on_fire5.ogg"
+Darwinian/OnFire6		"Sounds/Darwinian/darwin_on_fire6.ogg"
+Darwinian/OnFire7		"Sounds/Darwinian/darwin_on_fire7.ogg"
+Darwinian/OnFire8		"Sounds/Darwinian/darwin_on_fire8.ogg"
+Darwinian/OnFire9		"Sounds/Darwinian/darwin_on_fire9.ogg"
+Darwinian/OnFire10		"Sounds/Darwinian/darwin_on_fire10.ogg"
+Darwinian/OnFire11		"Sounds/Darwinian/darwin_on_fire11.ogg"
+Darwinian/OnFire12		"Sounds/Darwinian/darwin_on_fire12.ogg"
+Darwinian/OnFire13		"Sounds/Darwinian/darwin_on_fire13.ogg"
+
+$limit Darwinian/Threaten 0
+$random Darwinian/Threaten
+{	Darwinian/Threaten1	Darwinian/Threaten2	Darwinian/Threaten3
+}
+Darwinian/Threaten1		"Sounds/Darwinian/darwinian_threat_attack1.ogg"
+Darwinian/Threaten2		"Sounds/Darwinian/darwinian_threat_attack2.ogg"
+Darwinian/Threaten3		"Sounds/Darwinian/darwinian_threat_attack3.ogg"
+
+$limit Darwinian/Run 0
+$random Darwinian/Run
+{	Darwinian/Run1	Darwinian/Run2	Darwinian/Run3	Darwinian/Run4	Darwinian/Run5
+	Darwinian/Run6	Darwinian/Run7	Darwinian/Run8	Darwinian/Run9	Darwinian/Run10
+}
+Darwinian/Run1			"Sounds/Darwinian/darwinian_threat_run1.ogg"
+Darwinian/Run2			"Sounds/Darwinian/darwinian_threat_run2.ogg"
+Darwinian/Run3			"Sounds/Darwinian/darwinian_threat_run3.ogg"
+Darwinian/Run4			"Sounds/Darwinian/darwinian_threat_run4.ogg"
+Darwinian/Run5			"Sounds/Darwinian/darwinian_threat_run5.ogg"
+Darwinian/Run6			"Sounds/Darwinian/darwinian_threat_run6.ogg"
+Darwinian/Run7			"Sounds/Darwinian/darwinian_threat_run7.ogg"
+Darwinian/Run8			"Sounds/Darwinian/darwinian_threat_run8.ogg"
+Darwinian/Run9			"Sounds/Darwinian/darwinian_threat_run9.ogg"
+Darwinian/Run10			"Sounds/Darwinian/darwinian_threat_run10.ogg"
+
+/*
+Darwinian/				"Sounds/Darwinian/
+*/
+
+//==============================================================================
+//==============================================================================
+// Armor
+//==============================================================================
+//==============================================================================
+$limit Armor/Spawn 0;
+Armor/Spawn				"Sounds/Armor/ignitionzap1.ogg"
+
+$limit Armor/Deploy 0
+$random Armor/Deploy
+{	Armor/Deploy1	Armor/Deploy2	Armor/Deploy3	Armor/Deploy4
+	Armor/Deploy5	Armor/Deploy6	}
+Armor/Deploy1			"Sounds/Armor/armour_to_turret.ogg"
+Armor/Deploy2			"Sounds/Armor/armour_to_turret2.ogg"
+Armor/Deploy3			"Sounds/Armor/armour_to_turret3.ogg"
+Armor/Deploy4			"Sounds/Armor/armour_to_turret4.ogg"
+Armor/Deploy5			"Sounds/Armor/armour_to_turret5.ogg"
+Armor/Deploy6			"Sounds/Armor/armour_to_turret6.ogg"
+
+//==============================================================================
+//==============================================================================
+// Turret
+//==============================================================================
+//==============================================================================
+Turret/Fire/Bullet1		"Sounds/Turret/gun_turret_fire.ogg"
+Turret/Fire/Bullet2		"Sounds/Turret/gun_turret_fire2.ogg"
+Turret/Fire/Bullet3		"Sounds/Turret/gun_turret_fire3.ogg"
+Turret/Fire/Bullet4		"Sounds/Turret/gun_turret_fire4.ogg"
+Turret/Fire/Bullet5		"Sounds/Turret/gun_turret_fire5.ogg"
+Turret/Fire/Bullet6		"Sounds/Turret/gun_turret_fire6.ogg"
+Turret/Fire/FlameStart1	"Sounds/Turret/FlameTurret1.ogg"
+Turret/Fire/FlameStart2	"Sounds/Turret/FlameTurret2.ogg"
+Turret/Fire/FlameStart3	"Sounds/Turret/FlameTurret3.ogg"
+Turret/Fire/FlameStart4	"Sounds/Turret/FlameTurret4.ogg"
+Turret/Fire/FlameStart5	"Sounds/Turret/FlameTurret5.ogg"
+Turret/Fire/FlameStart6	"Sounds/Turret/FlameTurret6.ogg"
+Turret/Fire/FlameStart7	"Sounds/Turret/FlameTurret7.ogg"
+Turret/Fire/FlameStart8	"Sounds/Turret/FlameTurret8.ogg"
+Turret/Fire/FlameStart9	"Sounds/Turret/FlameTurret9.ogg"
+Turret/Fire/FlameStart0	"Sounds/Turret/FlameTurret10.ogg"
+Turret/Fire/FlameLoop	"Sounds/Turret/FlameTurretLoop1.ogg"
+Turret/Fire/FlameStop	"Sounds/Turret/FlameTurretFinal.ogg"
+Turret/Damage1			"Sounds/Turret/battle_cannon_damage.ogg"
+Turret/Damage2			"Sounds/Turret/battle_cannon_damage2.ogg"
+Turret/Damage3			"Sounds/Turret/battle_cannon_damage3.ogg"
+Turret/Damage4			"Sounds/Turret/battle_cannon_damage4.ogg"
+Turret/Damage5			"Sounds/Turret/battle_cannon_damage5.ogg"
+Turret/Damage6			"Sounds/Turret/battle_cannon_damage6.ogg"
+Turret/Damage7			"Sounds/Turret/battle_cannon_damage7.ogg"
+Turret/Damage8			"Sounds/Turret/battle_cannon_damage8.ogg"
+Turret/Damage9			"Sounds/Turret/battle_cannon_damage9.ogg"
+Turret/Damage10			"Sounds/Turret/battle_cannon_damage10.ogg"
+
+$random Turret/Fire/Bullet
+{	Turret/Fire/Bullet1	Turret/Fire/Bullet2	Turret/Fire/Bullet3	Turret/Fire/Bullet4
+	Turret/Fire/Bullet5	Turret/Fire/Bullet6	}
+	
+$random Turret/Fire/FlameStart
+{	Turret/Fire/FlameStart1	Turret/Fire/FlameStart2	Turret/Fire/FlameStart3
+	Turret/Fire/FlameStart4	Turret/Fire/FlameStart5	Turret/Fire/FlameStart6
+	Turret/Fire/FlameStart7	Turret/Fire/FlameStart8	Turret/Fire/FlameStart9
+	Turret/Fire/FlameStart0	}
+$random Turret/Damage
+{	Turret/Damage1	Turret/Damage2	Turret/Damage3	Turret/Damage4	Turret/Damage5
+	Turret/Damage6	Turret/Damage7	Turret/Damage8	Turret/Damage9	Turret/Damage10	}
+
+$limit Turret/Fire/Bullet 0
+$limit Turret/Fire/FlameLoop 0
+$limit Turret/Fire/FlameStart 0
+$limit Turret/Fire/FlameStop 0
+$limit Turret/Damage 0
+
+//==============================================================================
+//==============================================================================
+//	Menu
+//==============================================================================
+//==============================================================================
+
+menu/activate		"Sounds/Menu/taskin.ogg"				// Activate a new menu
+menu/backup			"Sounds/Menu/mouse6.ogg"				// Backup to previous menu
+menu/prompt			"Sounds/Menu/sepulveda_appear.ogg"		// Activate a prompt "menu"
+menu/cursor			"Sounds/Menu/rollover1a.ogg"			// Move cursor up/down
+menu/change			"Sounds/Menu/rollover1b.ogg"			// Select new value for option
+menu/invalid		"Sounds/Menu/CountdownBeep1.ogg"		// Menu not available
+menu/dismiss		"Sounds/Menu/sepulveda_disappear.ogg"	// Dismiss a prompt message
+menu/choose			"Sounds/Menu/CountdownBeep3.ogg"		// Choose a menu item
+menu/clear			"Sounds/Menu/taskout.ogg"				// Close top menu
+
+$pitchshift menu/activate 0
+$pitchshift menu/backup 0
+$pitchshift menu/prompt 0
+$pitchshift menu/cursor 0
+$pitchshift menu/change 0
+$pitchshift menu/invalid 0
+$pitchshift menu/dismiss 0
+$pitchshift menu/choose 0
+$pitchshift menu/clear 0
+
+$alias dssecret	menu/clear
+$volume dssecret 0.5
+
+$alias				intermission/tick			Turret/Fire/Bullet
+$alias				intermission/cooptotal		Darwinian/Death
+$alias				intermission/nextstage		Armor/Deploy
+$alias				intermission/paststats		Weapons/Rocket/Explode
+$alias				intermission/pastcoopstats	Weapons/Rocket/Explode
+$alias				intermission/pastdmstats	Darwinian/Death
