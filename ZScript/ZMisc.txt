@@ -1,3 +1,40 @@
+class MyGlobalVariables : Thinker
+{
+	int testVar;
+
+	MyGlobalVariables Init()
+	{
+		ChangeStatNum(STAT_INFO);
+		return self;
+	}
+
+	MyGlobalVariables Add(int i)
+	{
+		testVar += i;
+		return self;
+	}
+
+	static MyGlobalVariables Get()
+	{
+		ThinkerIterator it = ThinkerIterator.Create("MyGlobalVariables",STAT_INFO);
+		let p = MyGlobalVariables(it.Next());
+		if (p == null)
+		{
+			p = new("MyGlobalVariables").Init();
+		}
+		return p;
+	}
+}
+
+
+//==============================================================================
+//
+//
+//
+//==============================================================================
+
+
+
 Class DarwinianSide : Actor
 {
 	Default

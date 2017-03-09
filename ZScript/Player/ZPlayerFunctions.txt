@@ -162,9 +162,15 @@ extend class DarwinianPlayer
 		
 		
 		if (player.cheats & (CF_NOCLIP|CF_NOCLIP2))
+		{
+			speed = 1;
 			bFLOORHUGGER = false;
+		}
 		else if (!bFLOORHUGGER)
+		{
+			speed = 0;
 			bFLOORHUGGER = (A_CheckFloor("Spawn") && vel.z == 0);
+		}
 		
 		// ALWAYS make sure players have buddha.
 		bBUDDHA = true;
@@ -234,7 +240,7 @@ extend class DarwinianPlayer
 	//==========================================================================
 	override bool CanCollideWith(Actor other, bool passive)
 	{
-		return (other is "DWMonster");
+		return (!other || other is "DWMonster");
 	}
 	//==========================================================================
 	override void PlayAttacking() { }

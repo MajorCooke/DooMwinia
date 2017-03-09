@@ -1,3 +1,4 @@
+version 2.4
 #include "ZScript/ZConstants.txt"
 #include "ZScript/ZWeapons.txt"
 #include "ZScript/ZEffects.txt"

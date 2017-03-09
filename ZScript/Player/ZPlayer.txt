@@ -33,6 +33,7 @@ Class DarwinianPlayer : PlayerPawn
 		+LAXTELEFRAGDMG
 		+DONTMORPH
 		+NOICEDEATH
+		+SOLID
 		Gravity 0.25;
 		Speed 0;
 		Health 201;
