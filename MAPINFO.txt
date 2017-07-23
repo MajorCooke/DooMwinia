@@ -1,6 +1,8 @@
 DoomEdNums
 {
 	1506 = LaserTrunk
+	
+	15000 = DarwiniaSpawnPoint
 }
 
 GameInfo

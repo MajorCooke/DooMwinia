@@ -1,1 +1,2 @@
 server noarchive bool debughax = true;
+server noarchive bool limbmode = false;

@@ -640,7 +640,7 @@ Darwinian/				"Sounds/Darwinian/
 // Armor
 //==============================================================================
 //==============================================================================
-$limit Armor/Spawn 0;
+$limit Armor/Spawn 0
 Armor/Spawn				"Sounds/Armor/ignitionzap1.ogg"
 
 $limit Armor/Deploy 0

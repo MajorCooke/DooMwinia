@@ -1,4 +1,4 @@
-version 2.4
+version "2.5"
 #include "ZScript/ZConstants.txt"
 #include "ZScript/ZWeapons.txt"
 #include "ZScript/ZEffects.txt"
@@ -14,10 +14,13 @@ version 2.4
 #include "ZScript/ZDarwinian.txt"
 #include "ZScript/ZMisc.txt"
 #include "ZScript/ZSoulDestroyer.txt"
-#include "ZScript/ZZOptionMenu.txt"
+//#include "ZScript/ZZOptionMenu.txt"
 #include "ZScript/ZZOptionMenuItem.txt"
 #include "ZScript/ZZListMenu.txt"
 #include "ZScript/ZZListMenuItem.txt"
+
+// Buildings
+#include "ZScript/Buildings/SpawnPoint.txt"
 
 /*	//Stuff for later.
 	

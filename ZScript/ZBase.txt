@@ -10,8 +10,10 @@ Class DWBase : Actor
 Class DWEntity : DWBase
 {
 	bool Soulless;		// Never drops a soul or a ghost.
+	property Soulless: Soulless;
 	Default
 	{
+		DWEntity.Soulless false;
 		+DONTMORPH
 		+NOICEDEATH
 		-COUNTKILL
@@ -19,43 +21,21 @@ Class DWEntity : DWBase
 	//--------------------------------------------------------------------------
 	// HUGE thanks to ZZYZX for figuring this out. :D
 	//--------------------------------------------------------------------------
-    virtual void AngleSlope(double dang)
-    {
+	virtual void AngleSlope(double dang)
+	{
 		if (!bFLOORHUGGER)	return;
 		
-        vector3 fnormal = CurSector.floorplane.normal;
-        vector2 fnormalp1 = (fnormal.x != 0 || fnormal.y != 0) ? (fnormal.x, fnormal.y).Unit() : (0, 0);
-        vector2 fnormalp2 = ((fnormal.x, fnormal.y).Length(), fnormal.z);
-        double fang = atan2(fnormalp1.y, fnormalp1.x); // floor angle (not pitch!)
-        double fpitch = atan2(fnormalp2.x, fnormalp2.y); // floor pitch
-        double ddiff1 = cos(fang-(dang-90));
-        double ddiff2 = cos(fang-dang);
-        self.pitch = fpitch*ddiff2-90;
-        self.roll = -fpitch*ddiff1;
-        self.angle = dang;
-    }
-	
-	/*
-    private void SetToSlope(double dang)
-    {
-        vector3 fnormal = CurSector.floorplane.normal;
-        if (!CurSector.floorplane.isSlope())
-            fnormal = (0, 0, 1);
-        vector2 fnormalp1 = (fnormal.x != 0 || fnormal.y != 0) ? (fnormal.x, fnormal.y).Unit() : (0, 0);
-        vector2 fnormalp2 = ((fnormal.x, fnormal.y).Length(), fnormal.z);
-        vector2 angnormal1 = (cos(dang-90), sin(dang-90)).Unit();
-        vector2 angnormal2 = (cos(dang), sin(dang)).Unit();
-        double ddiff1 = (angnormal1.x*fnormalp1.x+angnormal1.y*fnormalp1.y); // dot product
-        double ddiff2 = (angnormal2.x*fnormalp1.x+angnormal2.y*fnormalp1.y); // dot product
-		A_SetPitch(atan2(fnormalp2.x, fnormalp2.y)*ddiff2-90, SPF_INTERPOLATE);
-		A_SetRoll(-atan2(fnormalp2.x, fnormalp2.y), SPF_INTERPOLATE);
-		A_SetRoll(roll * ddiff1,SPF_INTERPOLATE);
-		A_SetAngle(dang, SPF_INTERPOLATE);
-        //self.pitch = atan2(fnormalp2.x, fnormalp2.y)*ddiff2-90;
-        //self.roll = -atan2(fnormalp2.x, fnormalp2.y);
-        //self.roll *= ddiff1;
-        //self.angle = dang;
-    } */
+		vector3 fnormal = CurSector.floorplane.normal;
+		vector2 fnormalp1 = (fnormal.x != 0 || fnormal.y != 0) ? (fnormal.x, fnormal.y).Unit() : (0, 0);
+		vector2 fnormalp2 = ((fnormal.x, fnormal.y).Length(), fnormal.z);
+		double fang = atan2(fnormalp1.y, fnormalp1.x); // floor angle (not pitch!)
+		double fpitch = atan2(fnormalp2.x, fnormalp2.y); // floor pitch
+		double ddiff1 = cos(fang-(dang-90));
+		double ddiff2 = cos(fang-dang);
+		self.pitch = fpitch*ddiff2-90;
+		self.roll = -fpitch*ddiff1;
+		self.angle = dang;
+	}
 }
 
 Class DWEntityTemp : DWBase
