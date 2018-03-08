@@ -1,0 +1,11 @@
+/*==============================================================================
+
+	Darwinia Buildings - Spam Cubes
+	
+	The source of the virus. These things emit a nasty series of tendrils
+	that infest and convert anyone they touch into virus counterparts
+	(black), convert darwinians to their side or turn them into monsters.
+	
+	Can be destroyed.
+
+==============================================================================*/

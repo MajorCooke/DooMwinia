@@ -1,11 +1,90 @@
 // Models for Doomwinia
 // Created by Major Cooke
 
-Model "DarwiniaSpawnPoint"
+Model "DWSpawnPoint"
 {
    Path "Models"
    Model 0 "SpawnPoint.md3"
    Skin 0 "SpawnPointTexture.png"
+   AngleOffset 90.0
    
    FrameIndex SPWN A 0 0 
+}
+
+Model "DWSpawnPointBright"
+{
+   Path "Models"
+   Model 0 "SpawnPoint.md3"
+   Skin 0 "SpawnPointTexture.png"
+   AngleOffset 90.0
+   
+   FrameIndex SPWN A 0 0 
+}
+
+Model "DarwinianLaser"
+{
+	Model 0 "Models/BeamCenter.md3"
+	Scale 100.0 100.0 120.0
+	//Skin 0 "Graphics/Lzr.png"
+	//AngleOffset 90.0
+	//PitchOffset 90.0
+	//Scale 52.0 52.0 67.2
+	
+
+	DONTCULLBACKFACES
+	USEACTORPITCH
+	
+	Skin 0 "Graphics/NewLaser.png"
+	FrameIndex M100 C 0 0
+}
+
+Model "LaserTrunk"
+{
+	Model 0 "Models/BeamOffset.md3"
+	Scale 100.0 100.0 120.0	
+
+	DONTCULLBACKFACES
+	USEACTORPITCH
+	
+	Skin 0 "Graphics/NewLaser.png"
+	FrameIndex M100 C 0 0
+}
+
+Model "LaserTrunk2"
+{
+	Model 0 "Models/BeamOffset.md3"
+	Scale 100.0 100.0 120.0	
+
+	DONTCULLBACKFACES
+	USEACTORPITCH
+	
+	//Skin 0 "M101C0"
+	Skin 0 "Graphics/NewLaser.png"
+	FrameIndex M100 C 0 0
+}
+
+Model "LaserBranch"
+{
+	Model 0 "Models/BeamOffset.md3"
+	Scale 100.0 100.0 120.0	
+
+	DONTCULLBACKFACES
+	USEACTORPITCH
+	
+	Skin 0 "Graphics/NewLaser.png"
+	//Skin 0 "M101C0"
+	FrameIndex M100 C 0 0
+}
+
+Model "LaserLeaf"
+{
+	Model 0 "Models/BeamOffset.md3"
+	Scale 100.0 100.0 120.0	
+
+	DONTCULLBACKFACES
+	USEACTORPITCH
+	
+	Skin 0 "Graphics/NewLaser.png"
+	//Skin 0 "M101C0"
+	FrameIndex M100 C 0 0
 }

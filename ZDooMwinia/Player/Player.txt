@@ -1,0 +1,427 @@
+//==============================================================================
+//==============================================================================
+// All player functions moved to ZPlayerFunctions.txt.
+//==============================================================================
+//==============================================================================
+Class DarwinianPlayer : PlayerPawn
+{
+	// For use with the Entities[] array only.
+	enum EntityNames
+	{
+		ThirdPerson = 		0,
+		ChaseCam = 			1,
+		HitBox = 			2,
+	};
+	int RespawnTimer;
+	int ticker;
+	bool Soulless;
+	bool dead;
+	bool invis;
+	bool GameOver;
+	bool SpawnAir;	// Specify this to indicate the player is spawned in the air.
+	bool InCamera;
+	Actor Entities[3];
+	Class<Actor> SoulActor;
+	property SoulActor: SoulActor;
+	Default
+	{
+		DarwinianPlayer.SoulActor "DigitalSoul";
+		+BUDDHA	// Must be used.
+		+ROLLSPRITE
+		+THRUSPECIES
+		+DOHARMSPECIES
+		+NEVERRESPAWN
+		//+FLATSPRITE
+		+LAXTELEFRAGDMG
+		+DONTMORPH
+		+NOICEDEATH
+		+SOLID
+		Gravity 0.25;
+		Speed 5;
+		Health 201;
+		Mass 100;
+		Radius 2;				// Must be this much, otherwise the terrain causes some weird-ass glitching.
+		Height 32;
+		DesignatedTeam 1;
+		Player.MaxHealth 201;
+		Player.JumpZ 0;
+		Player.DisplayName "Darwinian";
+		Player.ViewHeight 32;
+		Player.StartItem "DarwinianWeapon";
+		Player.WeaponSlot 1, "DarwinianWeapon";
+		Player.DamageScreenColor "Red", 0.5;
+		Species "Darwinian";
+		DamageFactor "Telefrag", 0.0; // NOTELEFRAG prevents things from moving into the same spot.
+		//DamageFactor "Normal", 0.0;
+		DamageFactor "Suicide", 1.0;
+		DamageFactor "Exit", 1.0;
+		DamageFactor "InstantDeath", 1.0;
+		DamageFactor "Massacre", 0.0;
+	}
+	States
+	{
+	Spawn:
+		M100 A -1 NoDelay
+		{
+			/*
+			if (Entities.Size() > 0)
+			{
+				for (int i = 0; i < Entities.Size(); i++)
+				{
+					if (Entities[i] != null)
+					{
+						TeamManager.SetTeam(Entities[i], DesignatedTeam);
+					}
+				}
+			}
+			*/
+		}
+		Wait;
+	Death:
+		TNT1 A -1 
+		{
+			SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+			bINVISIBLE = true;
+			A_ClearOverlays();
+			for (int i = 0; i < Entities.Size(); i++)
+			{
+				if (Entities[i] != null)
+					Entities[i].Destroy();
+			}
+		}
+		Stop;
+	}
+}
+
+
+Class DarwinianPlayerHitBox : DWMonster
+{
+	Default
+	{
+		+GHOST
+		+NOBLOOD
+		-SOLID
+		+NOCLIP
+		+SHOOTABLE
+		+THRUSPECIES
+		+NEVERTARGET
+		+FORCERADIUSDMG
+		+CANPASS
+		+VULNERABLE
+		Health 1000000;
+		Species "Darwinian";
+		RenderStyle "None";
+		Radius 32;
+		Height 16;
+	}
+	
+	override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags = 0, double angle = 0)
+	{
+		if (!master)	return 0;
+		if (master && master.health <= 1)
+		{
+			A_LogInt(-1);
+			return 0;
+		}
+		
+		master.bFLOORHUGGER = false;
+		int dmg = master.DamageMobj(inflictor, source, damage, mod, flags, angle);
+		A_LogInt(dmg);
+		return dmg;
+	}
+	
+	override void Tick()
+	{
+		if (!master || master.health < 1)
+			return Destroy();
+		
+		A_Warp(MasterPtr,0,0,0,0,WARPF_NOCHECKPOSITION);
+		Super.Tick();
+	}
+	
+	States
+	{
+	Spawn:
+		TNT1 A -1;
+		Stop;
+	}
+}
+
+
+//==============================================================================
+//==============================================================================
+
+//==============================================================================
+//==============================================================================
+Class DarwinianThirdPerson : Actor
+{
+	DarwinianPlayer ms;
+	int ticker;
+	bool wasInvis;
+	Default
+	{
+		+NOINTERACTION
+		+FLATSPRITE
+	}
+	
+	override void Tick()
+	{
+		if (!master || master.health < 1)	
+			return Destroy();
+			
+		ticker = (ticker + 1) % 4;
+		
+		if (!ms)	ms = DarwinianPlayer(master);
+		if (ms && ms.dead)
+		{
+			bINVISIBLE = wasInvis = true;
+			return Super.Tick();
+		}
+		
+		if (master && master == players[consoleplayer].camera &&
+			!(master.player.cheats & CF_CHASECAM))
+		{
+			Translation = master.Translation;
+			A_FaceMovementDirection(0,0,0,FMDF_NOPITCH);
+			bINVISIBLE = true;
+		}
+		else
+		{
+			if (master)	Translation = master.Translation;
+			bINVISIBLE = false;
+			
+			if (!ticker)
+			{
+				if (master.bFLOORHUGGER)
+				{
+					A_FaceMovementDirection(0,40,0,FMDF_NOPITCH);
+					
+				}
+				else if (!bINVISIBLE)
+				{
+					angle = master.angle;
+				}
+			}
+		}
+		AngleSlope(angle);
+		Super.Tick();
+	}
+	
+	void AngleSlope(double dang)
+    {
+        vector3 fnormal = CurSector.floorplane.normal;
+        vector2 fnormalp1 = (fnormal.x != 0 || fnormal.y != 0) ? (fnormal.x, fnormal.y).Unit() : (0, 0);
+        vector2 fnormalp2 = ((fnormal.x, fnormal.y).Length(), fnormal.z);
+        double fang = atan2(fnormalp1.y, fnormalp1.x); // floor angle (not pitch!)
+        double fpitch = atan2(fnormalp2.x, fnormalp2.y); // floor pitch
+        double ddiff1 = cos(fang-(dang-90));
+        double ddiff2 = cos(fang-dang);
+        self.pitch = fpitch*ddiff2-90;
+        self.roll = -fpitch*ddiff1;
+        self.angle = dang;
+    }
+	
+	States
+	{
+	Spawn:
+		M100 A -1;
+		Stop;
+	}
+}
+
+//==============================================================================
+//==============================================================================
+// Darwinian Weapon
+//==============================================================================
+//==============================================================================
+
+Class DarwinianWeapon : Weapon 
+{
+	enum darweap
+	{
+		Weapon_Grenade = 0,
+		Weapon_Rocket,
+		PrimaryCooldown = 	35 * 1,
+		GrenadeCooldown =	35 * 4,
+		RocketCooldown =	35 * 6,
+	};
+	DarwinianPlayer plr;
+	int WeaponFlags;
+	int WeaponMode;
+	int SecondaryCooldown;
+	Default
+	{
+		+WEAPON.AMMO_OPTIONAL
+		+WEAPON.ALT_AMMO_OPTIONAL
+		+WEAPON.CHEATNOTWEAPON
+		+WEAPON.NOAUTOAIM
+		+INVENTORY.UNDROPPABLE
+	}
+	States
+	{
+	Spawn:
+		TNT1 A 0;
+		Stop;
+	Select:
+		M666 A 1 
+		{
+			A_Overlay(2, "Overlay.WeaponManager", true);
+			A_SetInventory("SecondaryAmmo",RocketCooldown - 2);
+			A_SetInventory("PrimaryAmmo",PrimaryCooldown - 1);
+			A_Raise(50);
+		}
+		Loop;
+	Deselect:
+		M666 A 1 A_Lower(50);
+		Loop;
+	Ready:
+		M666 A 1 
+		{
+			if (!invoker.plr)	invoker.plr = DarwinianPlayer(invoker.owner);
+			if (!invoker.plr || invoker.plr.dead || invoker.plr.health < 1)	
+			{
+				invoker.WeaponFlags = WRF_NOFIRE|WRF_DISABLESWITCH;
+				A_Overlay(2, "Null");
+				
+				if (invoker && invoker.plr.dead)
+				{
+					A_SetInventory("PrimaryAmmo",PrimaryCooldown - 5);
+					A_SetInventory("SecondaryAmmo",invoker.SecondaryCooldown - 5);
+				}
+			}
+			else
+			{
+				A_Overlay(2, "Overlay.WeaponManager", true);
+			}
+			
+			A_WeaponReady(WRF_DISABLESWITCH);
+		}
+		Loop;
+	Fire:
+	AltFire:
+		M666 A 1;
+		Goto Ready;
+		
+	Overlay.WeaponManager:
+		M666 A 1
+		{
+			let input = GetPlayerInput(MODINPUT_BUTTONS);
+			if (!invoker.plr)	invoker.plr = DarwinianPlayer(invoker.owner);
+			if (invoker.plr)
+			{
+				if (invoker.WeaponMode == Weapon_Rocket)
+					invoker.SecondaryCooldown = RocketCooldown;
+				else
+					invoker.SecondaryCooldown = GrenadeCooldown;
+				
+				if (input & BT_USER1 && !(GetPlayerInput(MODINPUT_OLDBUTTONS) & BT_USER1))
+				{
+					if (invoker.WeaponMode == Weapon_Grenade)
+					{
+						invoker.WeaponMode = Weapon_Rocket;
+						invoker.SecondaryCooldown = RocketCooldown;
+					}
+					else
+					{
+						A_SetInventory("SecondaryAmmo",1);
+						invoker.WeaponMode = Weapon_Grenade;
+						invoker.SecondaryCooldown = GrenadeCooldown;
+					}
+					A_PlaySound("Darwinian/LaserCock",CHAN_AUTO,1);
+				}
+				//==============================================================
+				// Primary Fire + Cooldown
+				if (CountInv("PrimaryAmmo") < PrimaryCooldown)
+				{
+					A_GiveInventory("PrimaryAmmo",1);
+					if (!invoker.plr.dead && CountInv("PrimaryAmmo") >= PrimaryCooldown)
+						A_PlaySound("Darwinian/LaserReload",5,0.5);
+				}
+				else if (!invoker.plr.dead && invoker.health > 0 && (input & BT_ATTACK))
+				{
+					A_SetInventory("PrimaryAmmo",1);
+					//A_PlaySound("Weapons/Laser/Fire",CHAN_WEAPON,1);
+					A_FireProjectile("DarwinianMuzzleFlash",0,0,0,0,FPF_NOAUTOAIM);
+					A_FireProjectile("DarwinianLaser",0,0,0,0,FPF_NOAUTOAIM);
+				}
+				
+				//==============================================================
+				// Secondary Fire + Cooldown
+				if (CountInv("SecondaryAmmo") < invoker.SecondaryCooldown)
+				{
+					A_GiveInventory("SecondaryAmmo",1);
+					if (!invoker.plr.dead && CountInv("SecondaryAmmo") >= invoker.SecondaryCooldown)
+					{
+						A_PlaySound("Darwinian/LaserCock",5,1);
+						A_PlaySound("Weapons/Grenade/Ready",6,0.25);
+					}
+				}
+				else if ((input & BT_ALTATTACK))
+				{
+					A_SetInventory("SecondaryAmmo",1);
+					A_FireProjectile("DarwinianMuzzleFlash",0,0,0,0,FPF_NOAUTOAIM);
+					
+					Class<Actor> ThingToFire = (invoker.WeaponMode) ? "DarwinianRocket" : "DarwinianGrenade";
+						
+					A_FireProjectile(ThingToFire,0,0,0,0,FPF_NOAUTOAIM);
+				}
+			}
+			
+		}
+		Loop;
+	}
+}
+
+Class PrimaryAmmo : Inventory 	{ Default { Inventory.MaxAmount 500; } }
+Class SecondaryAmmo : Inventory { Default { Inventory.MaxAmount 500; } }
+
+Class GameOverItem : CustomInventory
+{
+	Default
+	{
+		+INVENTORY.ALWAYSPICKUP
+	}
+	States
+	{
+	Pickup:
+		TNT1 A 0
+		{
+			if (invoker.owner is "DarwinianPlayer")
+			{
+				A_SpawnItemEx("GameOverKiller",5,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_SETTARGET);
+				return true;
+			}
+			return false;
+		}
+		Stop;
+	}
+}
+
+Class GameOverKiller : Actor
+{
+	Default
+	{
+		+NOINTERACTION
+		Obituary "%o lost the game.";
+	}
+	States
+	{
+	Spawn:
+		TNT1 A 1 NoDelay
+		{
+			let plr = DarwinianPlayer(target);
+			
+			if (plr)
+			{
+				plr.GameOver = true;
+				
+				if (plr.health > 1)
+				{
+					plr.bVULNERABLE = true;
+					plr.DamageMobj(self, self, plr.health * 10, "GameOver", DMG_FORCED|DMG_THRUSTLESS);
+				}
+			}
+		}
+		Wait;
+	}
+}

@@ -1,0 +1,10 @@
+/*==============================================================================
+
+	Darwinia Buildings - Radar Dish
+	
+	A utility building that allows transportation of units like Darwinians
+	and Squaddies. If at any point a link is broken, any units travelling from
+	the breaking link will instantly die. The dish can only be rotated to face
+	other radar dishes that are in a line of sight to prevent cheating.
+
+==============================================================================*/

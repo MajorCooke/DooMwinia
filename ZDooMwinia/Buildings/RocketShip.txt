@@ -1,0 +1,25 @@
+/*==============================================================================
+
+	Darwinia Buildings - Rocket Ship
+	
+	Used for launching darwinians into space. Or firing off a WMD to nuke
+	something with. Both require fuel. The former requires darwinians. 
+	The latter requires polygons.
+
+==============================================================================*/
+
+/*==============================================================================
+
+	Darwinia Buildings - Fuel Pumps
+	
+	These mine in the ocean or the ground for fuel. Requires power to operate.
+
+==============================================================================*/
+
+/*==============================================================================
+
+	Darwinia Buildings - Fuel Pipes
+	
+	Like pylons, these route through linked buildings towards a rocket ship.
+
+==============================================================================*/

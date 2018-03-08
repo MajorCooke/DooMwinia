@@ -1,0 +1,128 @@
+Struct TeamManager play
+{
+	static void SetTeam(Actor mo, int dteam)
+	{
+		if (!mo || mo.health < 1)
+		{
+			return;
+		}	
+		if (dteam < 0 || dteam > 255)
+			dteam = 255;
+		
+		mo.DesignatedTeam = dteam;
+		
+		Name trans = '0';
+		/*
+		if (mo is 'DarwinianLaser')
+		{
+			Switch (dteam)
+			{
+				Case 1: { trans = 'LaserGreen'; break; }
+				Case 2: { trans = 'LaserRed'; break; }
+				Case 3: { trans = 'LaserYellow'; break; }
+				Case 4: { trans = 'LaserBlue'; break; }
+				Case 5: { trans = 'LaserCyan'; break; }
+				Case 6: { trans = 'LaserOrange'; break; }
+				Case 7: { trans = 'LaserTeal'; break; }
+				Case 8: { trans = 'LaserViolet'; break; }
+				Default: { break; }
+			}
+		}
+		else
+		{
+			Switch (dteam)
+			{
+				Case 1: { trans = 'TeamGreen'; break; }
+				Case 2: { trans = 'TeamRed'; break; }
+				Case 3: { trans = 'TeamYellow'; break; }
+				Case 4: { trans = 'TeamBlue'; break; }
+				Case 5: { trans = 'TeamCyan'; break; }
+				Case 6: { trans = 'TeamOrange'; break; }
+				Case 7: { trans = 'TeamTeal'; break; }
+				Case 8: { trans = 'TeamViolet'; break; }
+				Default: { break; }
+			}
+		}
+		*/
+		Switch (dteam)
+		{
+			Case 1: { trans = 'TeamGreen'; break; }
+			Case 2: { trans = 'TeamRed'; break; }
+			Case 3: { trans = 'TeamYellow'; break; }
+			Case 4: { trans = 'TeamBlue'; break; }
+			Case 5: { trans = 'TeamCyan'; break; }
+			Case 6: { trans = 'TeamOrange'; break; }
+			Case 7: { trans = 'TeamTeal'; break; }
+			Case 8: { trans = 'TeamViolet'; break; }
+			Default: { break; }
+		}
+		mo.A_SetTranslation(trans);
+	}
+}
+
+Class DoomwiniaHandler : EventHandler
+{
+	override void WorldThingSpawned(WorldEvent e)
+	{
+		let mo = e.Thing;
+		if (mo)
+		{
+			if (mo is "Darwinian" || mo is "DarwinianPlayer")
+			{
+				TeamManager.SetTeam(mo, mo.DesignatedTeam);
+			}
+		}
+		
+	}
+
+	override void NetworkProcess(ConsoleEvent e)
+	{
+		String s = e.Name;
+		
+		if (s == 'TeamNext')
+		{
+			let p = players[e.Player].mo;
+			if (playeringame[e.Player] && p)
+			{
+				
+				TeamManager.SetTeam(p, Max(1, (p.DesignatedTeam + 1) % 9));
+			}
+		}
+		else if (s == 'Resize_DWSpawnPoint')
+		{
+			double NewRadius = e.Args[0];
+			double NewHeight = e.Args[1];
+			
+			if (NewRadius < 1 && NewHeight < 1)
+				return;
+				
+			int count = 0;
+			let it = ThinkerIterator.Create("DWBuilding");
+			DWBuilding mo;
+			while (mo = DWBuilding(it.Next(true)))
+			{
+				if (mo && mo.GetClassName() == "DWSpawnPoint")
+				{
+					count++;
+					mo.A_SetSize(NewRadius, NewHeight);
+				}
+			}
+			Console.Printf("%d", count);
+		}
+		/*	
+		if (s.IndexOf("Resize_") > -1)
+		{
+			if (s.IndexOf("DWSpawnPoint") > -1)
+			{
+				double NewRadius = Args[0];
+				double NewHeight = Args[1];
+				
+				if (NewRadius < 1 && NewHeight < 1)
+					return;
+					
+				let it = ThinkerIterator.Create
+			}
+		}
+		*/
+	}
+}

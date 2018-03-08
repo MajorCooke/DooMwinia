@@ -1,0 +1,8 @@
+/*==============================================================================
+
+	Darwinia Buildings - Incubator
+	
+	Incubators are buildings where engineers/darwinians can deposit souls into
+	which are rebirthed into more darwinians based on the team it belongs to.
+
+==============================================================================*/

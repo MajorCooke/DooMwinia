@@ -1,0 +1,8 @@
+/*==============================================================================
+
+	Darwinia Buildings - Armory
+	
+	Builds armor units for use in transportation and/or turret mobilization.
+	Requires 12 darwinians, power and refined polygons to work.
+
+==============================================================================*/

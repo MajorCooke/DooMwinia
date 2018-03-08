@@ -1,0 +1,10 @@
+/*==============================================================================
+
+	Darwinia Buildings - Trunk Ports
+	
+	Portals allow access to different locations when opened. Some teams will be
+	responsible for having trunk ports closed. Others need them open.
+	Only through open trunk ports can some units move through, such as calling
+	forth armor.
+
+==============================================================================*/

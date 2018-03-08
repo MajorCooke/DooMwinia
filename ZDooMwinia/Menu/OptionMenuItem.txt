@@ -1,0 +1,146 @@
+
+//==============================================================================
+// 
+// 
+// 
+//==============================================================================
+
+
+
+//==============================================================================
+// SubMenuColor
+// Draws just like a regular SubMenu, except when highlighted, fades
+// between red and gold. Also adds an ability to check cvars.
+//==============================================================================
+
+Class OptionMenuItemSubMenuColor : OptionMenuItemSubMenu
+{
+	const initialDirection = 0.05;
+	//Actor plr;
+	bool isSelected;
+	double glowAlpha;
+	double glowDir;
+	CVar mGrayCheck;
+	bool printOnce;
+	
+	// You CANNOT do the player stuff here! This init is done before the game's
+	// actual start-up!
+	OptionMenuItemSubmenuColor Init(String label, Name command, CVar graycheck = null, int param = 0)
+	{
+		printOnce = false;
+		glowDir = initialDirection;
+		glowAlpha = 0.0;
+		mGrayCheck = graycheck;
+		
+		Super.init(label, command);
+		mParam = param;
+		return self;
+	}
+	
+	override bool Selectable()
+	{
+		if (mGrayCheck == null)			return true;
+		if (mGrayCheck.GetInt() != 0)	return true;
+		return false;	
+	}
+	
+	override int Draw(OptionMenuDescriptor desc, int y, int indent, bool selected)
+	{		
+		isSelected = selected;	// Notify the Ticker function to start changing alphas.
+		
+		// The following code was taken from OptionMenuItem's drawLabel to allow
+		// 'color changing'.
+		// =====================================================================
+		if (selected)
+		{
+			String label = Stringtable.Localize(mLabel);
+			
+			int x;
+			int w = SmallFont.StringWidth(label) * CleanXfac_1;
+			if (!mCentered) x = indent - w;
+			else x = (screen.GetWidth() - w) / 2;
+
+			glowAlpha += glowDir;
+			if (glowAlpha > 0.5 || glowAlpha <= 0.0)
+			{
+				glowDir = -glowDir;
+				glowAlpha += glowDir;
+			}
+			
+			screen.DrawText (SmallFont, Font.CR_RED, x, y, label, DTA_CleanNoMove_1, true);
+			screen.DrawText (SmallFont, Font.CR_GOLD, x, y, label, DTA_CleanNoMove_1, true, DTA_Alpha, Clamp(glowAlpha * 2,0.01, 1.0));
+		}
+		// =====================================================================
+		// End copy/pasta.
+		else
+		{
+			glowDir = initialDirection;
+			glowAlpha = 0.0;
+			drawLabel(indent, y, OptionMenuSettings.mFontColorMore, !Selectable());
+		}
+		
+		return indent;
+	}
+	/*
+	override void Ticker()
+	{
+		Super.Ticker();
+		if (!printOnce)
+		{
+			if (playeringame[consoleplayer])
+				plr = players[consoleplayer].mo;
+			
+				
+			if (plr)		plr.A_LogInt(1);
+			else			console.Printf("Ruh roh!");
+				
+			printOnce = true;
+		}
+	}
+	*/
+}
+
+/*
+Class OptionMenuItemSubMenuBarf : OptionMenuItemSubMenu
+{
+	String realLabel;
+	String LOLLabel;
+	
+	void CrapOnMyString()
+	{
+		realLabel = mLabel;
+		LOLLabel = "";
+		for (int i = 0; i < 20; i++)
+		{
+			if (random(0,1))
+				continue;
+			
+			static const String ACh[] =
+			{	
+				"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
+				"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+				"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
+				"n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"	
+			};
+			
+			LOLLabel = LOLLabel..ACh[random(0,ACh.Size() - 1)];
+		}
+	}
+	
+	OptionMenuItemSubmenuColor Init(String label, Name command, int param = 0)
+	{
+		Super.init(label, command);
+		mParam = param;
+		return self;
+	}
+	
+	override int Draw(OptionMenuDescriptor desc, int y, int indent, bool selected)
+	{
+		CrapOnMyString();
+		mLabel = LOLLabel;
+		drawLabel(indent, y, selected ? Font.CR_GREEN : OptionMenuSettings.mFontColorMore);
+		mLabel = realLabel;
+		return indent;
+	}
+}
+*/

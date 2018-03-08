@@ -1,0 +1,17 @@
+/*==============================================================================
+
+	Darwinia Buildings - Solar Panels
+	
+	Emits power through routed lines to the team pylons of the darwinians
+	controlling it.
+
+==============================================================================*/
+
+/*==============================================================================
+
+	Darwinia Buildings - Solar Generator
+	
+	Measures the throughput of the joules passing into it from anything that
+	gives off power.
+
+==============================================================================*/

@@ -1,0 +1,8 @@
+/*==============================================================================
+
+	Darwinia Buildings - Pylon
+	
+	Acts as transfer nodes for souls and power. A line is drawn between
+	previously linked objects that are capable of transferring those things.
+
+==============================================================================*/

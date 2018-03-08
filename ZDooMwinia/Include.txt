@@ -1,0 +1,22 @@
+#include "ZDooMwinia/Constants.txt"
+#include "ZDooMwinia/Weapons.txt"
+#include "ZDooMwinia/Effects.txt"
+#include "ZDooMwinia/Functions.txt"
+
+// Player
+#include "ZDooMwinia/Player/Player.txt"
+#include "ZDooMwinia/Player/PlayerFunctions.txt"
+
+// Actual entities
+#include "ZDooMwinia/Base.txt"
+#include "ZDooMwinia/Entities/Include.txt"
+
+#include "ZDooMwinia/Event.txt"
+#include "ZDooMwinia/Misc.txt"
+//#include "ZDooMwinia/Menu/OptionMenu.txt"
+#include "ZDooMwinia/Menu/OptionMenuItem.txt"
+#include "ZDooMwinia/Menu/ListMenu.txt"
+#include "ZDooMwinia/Menu/ListMenuItem.txt"
+
+// Buildings
+#include "ZDooMwinia/Buildings/Building.txt"

@@ -1,0 +1,12 @@
+/*==============================================================================
+
+	Darwinia Buildings - Triffid
+	
+	Shoots eggs with programmable egg contents, delay, turn radius and more.
+	
+	Bugawk.
+	
+	Can be destroyed. Upon destruction, has increased launch frequency until
+	finally incinerated.
+
+==============================================================================*/

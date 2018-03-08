@@ -1,0 +1,31 @@
+/*==============================================================================
+
+	Darwinia Buildings - Mines
+	
+	Whenever a cart passes through this building and it's empty, the cart gains
+	a mineral if there's darwinians operating it. Every darwinian increases the
+	chance to mine something equivalent to the max number of controllers.
+	
+	In this case, there's 4. so each darwinian operating it adds a 25% success
+	rate, to 100%.
+
+==============================================================================*/
+
+/*==============================================================================
+
+	Darwinia Buildings - Quarry
+	
+	Responsible for processing the raw polygons into shaped polygons, as well
+	as getting the carts moving. The more darwinians operating it, the faster
+	it moves.
+
+==============================================================================*/
+
+
+/*==============================================================================
+
+	Darwinia Buildings - Quarry Scaffolds
+	
+	Carries carts through and scoops up/drops off from/to portals/armories.
+
+==============================================================================*/

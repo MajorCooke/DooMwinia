@@ -1,0 +1,13 @@
+/*==============================================================================
+
+	Darwinia Buildings - Ant Hill
+	
+	Houses ants and serves as a home for them to drag souls back into and
+	generate more ants from. Configurable ant wander distance, and worker
+	count.
+	
+	Can be set to self destruct if last ant dies.
+	
+	Can be destroyed.
+
+==============================================================================*/

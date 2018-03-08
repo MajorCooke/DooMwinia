@@ -1,0 +1,48 @@
+/*==============================================================================
+
+	Darwinia Buildings - Spawn Point
+	
+	Requires darwinians to operate. Spawns darwinians with souls received.
+	These obey population caps if they are in range of them.
+
+==============================================================================*/
+
+
+Class DWSpawnPoint : DWBuilding
+{
+	Default
+	{
+		DWBuilding.Controllable CT_DARWINIAN;
+		DWBuilding.ControlCount 5;
+		Radius 150;
+		Height 200;
+	}
+	
+	override void CreateControlPoints()
+	{
+		double ang = 90;
+		for (int i = 0; i < ControlCount; i++)
+		{
+			CPX.Push(150.0);
+			CPY.Push(0.0);
+			CPZ.Push(20.0);
+			CPA.Push(ang + (45 * i));
+		}
+		Super.CreateControlPoints();
+	}
+	
+	States
+	{
+	Spawn:
+		SPWN A -1;
+		Stop;
+	}
+}
+
+Class DWSpawnPointBright : DWSpawnPoint
+{
+	Default
+	{
+		+BRIGHT
+	}
+}

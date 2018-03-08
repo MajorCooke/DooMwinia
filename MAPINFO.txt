@@ -2,11 +2,12 @@ DoomEdNums
 {
 	1506 = LaserTrunk
 	
-	15000 = DarwiniaSpawnPoint
+	15000 = DWSpawnPoint
 }
 
 GameInfo
 {
+	AddEventHandlers = "DoomwiniaHandler"
 	QuitSound = "Darwinian/BurnDeath"
 	QuitMessages = 
 		"WARNING: Virus removal incomplete. Closing the application may result in further infection. Continue?",

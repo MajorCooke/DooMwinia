@@ -1,0 +1,300 @@
+#include "ZDooMwinia/Buildings/SpawnPoint.txt"
+#include "ZDooMwinia/Buildings/Decorations.txt"
+//#include "ZDooMwinia/Buildings/ControlPoints.txt"
+
+/*
+	Building main class
+	-----
+	Description:
+	
+		Prepares for usage in the world. Sets up all base properties needed
+		before the rest are performed.
+		
+		Master pointer is used by controllers to indicate 
+	-----
+	Available Variables:
+	
+	- Indestructible
+		A building with this set to true can be destroyed by explosions.
+		
+	- Controllable
+		0: Not controllable
+		1: An engineer can reprogram a control node and change the building's team.
+		2: Darwinians can control this building.
+	
+*/
+
+Class DWBuildingBase : DWBase 
+{
+	virtual void UpdateBuilding()	{}	
+}
+
+Class DWBuilding : DWBuildingBase
+{
+	enum BuildingNums
+	{
+		MaxControls = 		50,
+		
+		CT_NONE =			0,
+		CT_ENGINEER =		1,
+		CT_DARWINIAN =		2,
+	};
+	
+	// Non-constants
+	int						Teams[8];
+	bool 					Indestructible;
+	int 					Controllable;
+	readonly int 			ControlCount;
+	
+	Array<Double> 			CPX, CPY, CPZ, CPA;
+	DWController			Controller;
+	
+	Array<DWControlPoint> 	ControlPoints;
+	Array<DWEntity> 		ControlOperators;
+	Array<Actor> 			ConIn;				// Connection to this building
+	Array<Actor> 			ConOut;				// Connections to other buildings
+	
+	
+	property Indestructible: Indestructible;
+	property Controllable: Controllable;
+	property ControlCount: ControlCount;
+	
+	
+	
+	Default
+	{
+		DWBuilding.Indestructible true;
+		DWBuilding.Controllable 0;
+		DWBuilding.ControlCount 0;
+		+SOLID
+		+NOGRAVITY
+		+DONTTHRUST
+		+DONTMORPH
+		+NOICEDEATH
+		+DONTBLAST
+		+NODAMAGE
+		+NOPAIN
+		+NOBLOOD
+		
+		//+VULNERABLE
+		DamageFactor "SoulDestroyer", 0.0;
+	}
+	
+	override void PostBeginPlay()
+	{
+		if (GetClass() == "DWBuilding")
+			return Destroy();
+	
+		Super.PostBeginPlay();
+		
+		CreateControlPoints();
+	}
+	
+	override void OnDestroy()
+	{
+		if (ControlPoints.Size() > 0)
+			for (int i = 0; i < ControlPoints.Size(); i++)
+				if (ControlPoints[i])	ControlPoints[i].Destroy();
+	}
+	
+	//==========================================================================
+	// The way these work, the super version must be called from the inheriting
+	// actors after they've established the positions.
+	//--------------------------------------------------------------------------
+	virtual void CreateControlPoints()
+	{
+		if (Controllable < 2 || ControlCount < 1)	
+		{
+			CPX.Clear();
+			CPY.Clear();
+			CPZ.Clear();
+			CPA.Clear();
+			return;
+		}
+		
+		if (ControlPoints.Size() >= ControlCount)	return;
+		
+		CPX.Resize(Min(ControlCount,MaxControls));
+		CPY.Resize(Min(ControlCount,MaxControls));
+		CPZ.Resize(Min(ControlCount,MaxControls));
+		CPA.Resize(Min(ControlCount,MaxControls));
+		
+		for (int i = 0; i < ControlCount; i++)
+		{
+			Actor cp; bool a;
+			[a, cp] = A_SpawnItemEx("DWControlPoint", CPX[i], CPY[i], angle: CPA[i], flags: SXF_NOCHECKPOSITION|SXF_SETMASTER|SXF_ORIGINATOR);
+			
+			let CtrlPnt = DWControlPoint(cp);
+			
+			if (CtrlPnt)
+			{
+				CtrlPnt.A_Warp(DefPtr, zofs: CPZ[i], flags: WARPF_NOCHECKPOSITION|WARPF_TOFLOOR);
+				ControlPoints.Push(CtrlPnt);
+				let Ct = DWControlPoint(CtrlPnt);
+				if (Ct)	Ct.ControlNumber = i;
+			}
+		}
+	}
+	//--------------------------------------------------------------------------
+	// Checks to see how many are controlling the building.
+	// Returns negative numbers if the building is contested by enemy teams.
+	
+	// Returns:
+	// 0: 		Offline
+	// [1,5]: 	# Darwinians controlling it
+	// -[1,5]:	Darwinians contesting it.
+	virtual int CheckControls()
+	{
+		if (Controllable == CT_DARWINIAN && ControlPoints.Size() > 0)
+		{
+			int taken = 0;
+			bool contested = false;
+			int originalTeam = 255;
+			for (int i = 0; i < ControlPoints.Size(); i++)
+			{
+				Actor operator = ControlPoints[i].target;
+				if (operator && operator.target == ControlPoints[i])	
+				{
+					int desteam = ControlPoints[i].target.DesignatedTeam;
+					if (!contested)
+					{
+						if (originalTeam == 255)
+							originalTeam = desteam;
+						else if (desteam != originalTeam)
+							contested = true;
+					}
+					taken++;
+				}
+				
+			}
+			if (contested)	taken = -abs(taken);
+			return taken;
+		}
+		return 0;
+	}
+	
+	//--------------------------------------------------------------------------
+	// ENGINEER ONLY VERSION
+	
+	virtual bool CheckEngineerController(Actor Requester)
+	{
+		if (!Requester || !Controller || Controllable != CT_ENGINEER) 
+			return false;
+		
+		// Check to see if it's on the same team or allied.
+		if (Controller.DesignatedTeam != Requester.DesignatedTeam)
+		{
+			/* TO-DO: Implement team checking (alliances and enemies)
+			if (Gl.CheckTeam(Requester))
+				return true;
+			*/
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+	//==========================================================================
+	// States
+	//==========================================================================
+	States
+	{
+	Spawn:
+		TNT1 A -1;
+		Stop;
+	}
+}
+
+//==============================================================================
+// Control Points
+//
+// These serve as entities for Darwinians to operate on buildings.
+//==============================================================================
+Class DWControlPoint : DWBuildingBase
+{
+	int ControlNumber;
+	Darwinian Operator;
+	Default
+	{
+		+NOINTERACTION
+		+ROLLSPRITE
+		+BRIGHT
+		RenderStyle "Add";
+		Scale 0.8;
+	}
+	
+	override void BeginPlay()
+	{
+		ChangeStatNum(STAT_CONTROL_DARWINIAN);
+		Super.BeginPlay();
+	}
+	
+	// Check to see if an operator is present.
+	Darwinian GetOperator()
+	{
+		return Operator;
+	}
+	
+	bool IsTaken()
+	{
+		return (master && !Operator);
+	}
+	
+	// Only a darwinian or a player can take control. 
+	void SetOperator(Actor who = null)
+	{
+		if (!who || who.health < 1 || !(who is "Darwinian") || !(who is "DarwinianPlayer"))
+		{
+			Operator = null;
+			A_SetTranslation('');
+			return;
+		}
+		Operator = Darwinian(who);
+		Translation = who.Translation;
+	}
+	
+	States
+	{
+	Spawn:
+		M100 F -1 NoDelay { roll = random(0,359); }
+		Stop;
+	}
+}
+
+//==============================================================================
+// Controllers
+//
+// These structures can be reprogrammed by engineers, allowing access/usability.
+//==============================================================================
+Class DWController : DWBuildingBase
+{
+	Actor Dish;
+	int ProgramProgress;
+	Default
+	{
+		//$Title Control Point
+		//$IgnoreRenderstyle
+		//$Arg0 TID Link To
+		//$Arg0Tooltip Set this number to the TID of the building you want it to affect when an engineer reprograms it.
+		+SOLID
+		+NOGRAVITY
+		+DONTTHRUST
+	}
+	
+	// Returns 1 if on the same team, 0 if not on the same team
+	// and -1 if no building is pointed to.
+	int CheckTeam(int team)
+	{
+		if (master)
+			return (master.DesignatedTeam == team);
+		
+		return -1;
+	}
+	
+	override void BeginPlay()
+	{
+		ChangeStatNum(STAT_CONTROL_ENGINEER);
+		Super.BeginPlay();
+	}
+}

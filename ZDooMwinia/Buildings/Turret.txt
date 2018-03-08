@@ -1,0 +1,20 @@
+/*==============================================================================
+
+	Darwinia Buildings - Turret
+	
+	Turrets are Darwinian operated buildings that come in several flavors:
+	- Flechette
+	- Flame
+	- Piercing Laser
+	- Converter Wave
+	- Rocket
+	- Grenade
+	
+	Requires 4 darwinians to operate or 1 commando (player). Darwinians can
+	still mount up on the turrets to continue operations after commando
+	is done controlling it. Commandos override regular Darwinians at any time.
+	
+	Can be destroyed. 
+	
+
+==============================================================================*/

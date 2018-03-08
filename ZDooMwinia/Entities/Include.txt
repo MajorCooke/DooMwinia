@@ -1,0 +1,3 @@
+#include "ZDooMwinia/Entities/DigitalSoul.txt"
+#include "ZDooMwinia/Entities/Darwinian.txt"
+#include "ZDooMwinia/Entities/SoulDestroyer.txt"

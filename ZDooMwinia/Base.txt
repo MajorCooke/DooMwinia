@@ -1,0 +1,54 @@
+Class DWBase : Actor
+{
+}
+
+//==============================================================================
+// Entity
+//
+// Responsible for things that basically move by themselves.
+//==============================================================================
+Class DWEntity : DWBase
+{
+	Class<Actor> SoulActor;
+	bool Soulless;		// Never drops a soul or a ghost.
+	property Soulless: Soulless;
+	property SoulActor: SoulActor;
+	Default
+	{
+		DWEntity.SoulActor "DigitalSoul";
+		DWEntity.Soulless false;
+		+DONTMORPH
+		+NOICEDEATH
+		-COUNTKILL
+	}
+	//--------------------------------------------------------------------------
+	// HUGE thanks to ZZYZX for figuring this out. :D
+	//--------------------------------------------------------------------------
+	virtual void AngleSlope(double dang)
+	{
+		if (!bFLOORHUGGER)	return;
+		
+		vector3 fnormal = CurSector.floorplane.normal;
+		vector2 fnormalp1 = (fnormal.x != 0 || fnormal.y != 0) ? (fnormal.x, fnormal.y).Unit() : (0, 0);
+		vector2 fnormalp2 = ((fnormal.x, fnormal.y).Length(), fnormal.z);
+		double fang = atan2(fnormalp1.y, fnormalp1.x); // floor angle (not pitch!)
+		double fpitch = atan2(fnormalp2.x, fnormalp2.y); // floor pitch
+		double ddiff1 = cos(fang-(dang-90));
+		double ddiff2 = cos(fang-dang);
+		self.pitch = fpitch*ddiff2-90;
+		self.roll = -fpitch*ddiff1;
+		self.angle = dang;
+	}
+}
+
+Class DWEntityTemp : DWBase
+{
+	override void PostBeginPlay()
+	{
+		return Destroy();
+	}
+}
+
+Class DWMonster : DWEntity {}
+
+Class DWMonsterTemp : DWEntityTemp {}

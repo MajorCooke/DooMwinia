@@ -1,0 +1,793 @@
+/* Sounds
+Darwinian/
+	Attack
+	Attention
+	Aye
+	Carry
+	Carrying
+	DSelect
+	DStrain
+	Hit
+	Retreat
+	LaserCock
+	LaserReload
+	LaserHitDarwinian
+	Marching
+	YesSir
+	Choir
+	BurnDeath
+	Create
+	Death
+	Jump
+	Damage
+	OnFire
+	Threaten
+	Run
+*/
+
+
+
+Class Darwinian : DWMonster
+{
+	const MaxTurn = 25.0;
+	int ticker;
+	double velForward, oldangle;
+	Vector3 oldpos;
+	double oldroll, oldvelz;
+	Actor spawner;
+	Actor closest;	double closestDist, maxDist;
+	Actor bits[3];
+	bool reversed;
+	StateLabel Next;
+	Name Status;
+	Default
+	{
+		DesignatedTeam 1;
+		Monster;
+		+FLOORHUGGER
+		-COUNTKILL
+		+FLATSPRITE
+		+ROLLSPRITE
+		+NOBLOOD
+		+DOHARMSPECIES
+		+ABSMASKPITCH
+		+THRUSPECIES
+		+CANTLEAVEFLOORPIC
+		+QUICKTORETALIATE
+		Health 200;
+		Mass 100;
+		Scale 0.5;
+		Radius 16;
+		Height 32;
+		Gravity 0.15;
+		Speed 5;
+		Species "Darwinian";
+		PainSound "Darwinian/Damage";
+		DeathSound "Darwinian/Death";
+		VisibleAngles -80, 80;
+		VisiblePitch -360.0, 360.0;
+	}	
+	Vector2 NextLocation;
+	
+	enum cooldowns
+	{
+		CD_Laser = 0,
+		CD_Grenade,
+		CD_Rocket,
+		CD_AttackNoise,
+		CD_SightNoise,
+	}
+	
+	uint cooldown[5];
+	int boredTimeLeft;
+	double boredAngle, boredTurnAmount;
+	//==========================================================================
+	//
+	// States
+	//
+	//==========================================================================
+	
+	States
+	{
+	Spawn:
+		M100 A 0
+		{
+		}
+	IdleReturnWait:
+		M100 A 4;
+	IdleReturn:
+		M100 A 0
+		{
+			UnsetReverse();
+			Status = "Bored";
+			Next = null;
+		}
+	Idle:
+	Searching:
+		M100 A 0
+		{
+			SearchForActors();
+			if (closest)
+			{
+				Class<Actor> thing = closest.GetClass();
+				
+				// Prioritize explosives.
+				if (thing == "DarwinianGrenade" || thing == "DarwinianRocket")
+				{
+					maxDist = Dist_Explosive;
+					A_ClearTarget();
+					A_PlaySound("Darwinian/Run",CHAN_AUTO);
+					status = "RUNAWAY";
+					Next = "RUNAWAY";
+				}
+				else if (thing == "Darwinian" || thing == "DarwinianPlayer" || closest.bISMONSTER)
+				{
+					maxDist = Dist_Darwinian;
+					Status = "Attacking";
+					Next = "AttackNormal";
+				}
+				else
+				{
+					A_ClearTarget();
+					closest = null;
+					closestDist = -1.0;
+					maxDist = 0.0;
+				}
+			}
+			
+			return ResolveState(Next);
+		}
+	// Move around a little.
+	Bored:
+		M100 A 4
+		{
+			Next = null;
+			velForward = speed * 0.2;
+			if (boredTimeLeft <= 0)
+			{
+				boredTimeLeft = random(35, 70);
+				boredAngle = frandom(30.0, 120.0);
+				boredTurnAmount = frandom(MaxTurn * 0.5, MaxTurn) * randompick(-1,1);
+			}
+			else
+			{
+				boredTimeLeft -= 4;
+				if (boredAngle > 0)
+				{
+					angle += boredTurnAmount; 
+					boredAngle -= abs(boredTurnAmount);
+					A_ChangeVelocity(velForward,flags: CVF_RELATIVE|CVF_REPLACE);
+				}
+			}			
+		}
+		Goto Searching;
+	//--------------------------------------------------------------------------
+	// RUN AWAY!!!
+	//--------------------------------------------------------------------------
+	RUNAWAY:
+		"####" "#" 4
+		{
+			Next = null;
+			if (!closest || Distance2D(closest) > maxDist)
+			{
+				A_ClearTarget();
+				closest = null;
+				closestDist = -1.0;
+				maxDist = 0;
+				return ResolveState("IdleReturnWait");
+			}
+			SetReverse();
+			A_Face (closest, MaxTurn, 270, random(10,15) * randompick(-1,1));
+			AngleSlope(angle);
+			A_ChangeVelocity(-speed,0,0,CVF_RELATIVE|CVF_REPLACE);
+			return ResolveState(null);
+		}
+		Wait;
+		
+	//--------------------------------------------------------------------------
+	// Attack the target.
+	//
+	// 
+	//--------------------------------------------------------------------------
+	AttackNormal:
+		"####" "#" 4
+		{
+			if (!target)	
+			{
+				target = closest;
+				closest = null;
+			}
+			Next = null;
+			A_Chase(null,null,CHF_DONTMOVE|CHF_DONTTURN|CHF_NODIRECTIONTURN|CHF_NORANDOMTURN|CHF_NOPOSTATTACKTURN);
+			if (!target || !target.bSHOOTABLE || target.DesignatedTeam == DesignatedTeam || 
+				Distance2D(target) > maxDist)
+			{
+				UnsetReverse();
+				target = closest = null;
+				maxDist = 0;
+				A_ClearTarget();
+				return ResolveState("IdleReturnWait");
+			}
+			
+			if (!cooldown[CD_SightNoise])
+			{
+				cooldown[CD_SightNoise] = 35*random(10, 40);
+				cooldown[CD_AttackNoise] = random(35, 140);
+				A_PlaySound("Darwinian/Threaten",CHAN_AUTO);
+			}
+			
+			if (!cooldown[CD_AttackNoise])
+			{
+				cooldown[CD_AttackNoise] = random(35, 140);
+				A_PlaySound("Darwinian/Attack",CHAN_AUTO);
+			}
+			
+			if (abs(velForward) != speed)	velForward = speed;
+			
+			if (Distance2D(target) > closestDist * 0.75)
+			{
+				UnsetReverse();
+			}
+			else
+			{
+				SetReverse();
+			}
+			A_Face (target, MaxTurn, 270, random(10,15) * randompick(-1,1));
+			AngleSlope(angle);
+			
+			if (random(1,50) == 1 && !cooldown[CD_Grenade])
+			{
+				/*
+					v in the formula is the projectile speed, 
+					g is the acceleration due to gravity, 
+					x is distance on the XY plane and 
+					y is distance in the Z direction
+				*/
+				double tempAngle = angle;
+				double tempPitch = pitch;
+				double firePitch = -30;
+				int flags = CMF_OFFSETPITCH|CMF_BADPITCH;
+				if (target)
+				{
+					A_FaceTarget(0,0);
+					flags = CMF_ABSOLUTEPITCH|CMF_AIMDIRECTION;
+					readonly<Actor> gren = GetDefaultByType("DarwinianGrenade");
+					
+					double v = gren.Speed;
+					double g = gren.Gravity;
+					
+					Vector3 vecto = vec3To(target);
+					Vector2 lvec = (vecto.xy.length(), vecto.z + 16);
+
+					double discriminant = v ** 4 - g * (g * lvec.x * lvec.x + 2 * lvec.y * v * v);
+					if (discriminant >= 0) 
+					{
+						// we can hit the target at this range, so finish the calculation
+						double newPitch0 = atan2(v * v + sqrt(discriminant), g * lvec.x);
+						double newPitch1 = atan2(v * v - sqrt(discriminant), g * lvec.x);
+						firePitch = min(newPitch0, newPitch1);
+						// fire projectile at pitch or whatever
+					}
+					else 
+					{
+						// we can't hit, so aim at the maximum possible distance instead
+						lvec.x = sqrt(((v ** 4) / g - 2 * lvec.y * v * v) / g);
+						double discriminant = v ** 4 - g * (g * lvec.x * lvec.x + 2 * lvec.y * v * v);
+						double newPitch0 = atan2(v * v + sqrt(discriminant), g * lvec.x);
+						double newPitch1 = atan2(v * v - sqrt(discriminant), g * lvec.x);
+						// fire projectile
+						firePitch = min(newPitch0, newPitch1);
+					}
+				}
+				cooldown[CD_Grenade] = 35 * 3;
+				A_SpawnProjectile("DarwinianMuzzleFlash",16,0,0,flags,firePitch + 90);
+				A_SpawnProjectile("DarwinianGrenade",16,0,0,flags,firePitch);
+				angle = tempAngle;
+				pitch = tempPitch;
+			}
+			else if (random(1,5) == 1 && !cooldown[CD_Laser])
+			{
+				cooldown[CD_Laser] = 35 * random(1, 2);
+				double ran[2];
+				ran[0] = frandom(-3.0, 3.0);
+				ran[1] = frandom(-3.0, 3.0);
+				A_SpawnProjectile("DarwinianMuzzleFlashNoAdjust",16,0,ran[0],CMF_OFFSETPITCH|CMF_BADPITCH,90 + ran[1]);
+				A_SpawnProjectile("DarwinianLaser",16,0,ran[0],CMF_OFFSETPITCH|CMF_BADPITCH,ran[1]);
+			}
+			A_ChangeVelocity(velForward,0,0,CVF_RELATIVE|CVF_REPLACE);
+			return ResolveState("IdleReturnWait");
+		}
+		Wait;
+	Flying:
+		M100 A 1
+		{
+			if (A_CheckFloor("Null"))
+			{
+				bFLOORHUGGER = bNOGRAVITY = true;
+				return ResolveState("IdleReturnWait");
+			}
+			return ResolveState(null);
+		}
+		Loop;
+	Operate:
+		M100 A 0 
+		{
+			Status = "Operate";
+			AngleSlope(angle);
+			oldroll = roll; 
+		}
+		M100 A 1
+		{
+			OperateTilt ((level.time * 2.5) % 360.0);
+		}
+		Wait;
+	Death:
+		TNT1 A 70 DarwinianDie();
+		Stop;
+	}
+}
+
+extend class Darwinian
+{
+	//==========================================================================
+	//==========================================================================
+	//==========================================================================
+	// Overrides
+	//==========================================================================
+	//==========================================================================
+	//==========================================================================
+	
+	//==========================================================================
+	// DamageMobj
+	//==========================================================================
+	
+	override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags = 0, double angle = 0)
+	{
+		if (health < 1 || damage < 1)	return 0;
+		
+		if (source || inflictor)
+			bFLOORHUGGER = bNOGRAVITY = false;
+		int dmg = Super.DamageMobj(inflictor, source, damage, mod, flags, angle);
+		
+		if (dmg > 0 && health > 0)
+		{
+			A_Pain();
+			
+			//A_ChangeVelocity(0,0,dmg * 0.125 / ((mass > 0) ? mass : 1));
+			if (vel.z != 0.0 || !A_CheckFloor("Spawn"))
+			{
+				vel.z *= 3.0;
+				SetStateLabel("Flying");
+			}
+			else
+			{
+				bFLOORHUGGER = bNOGRAVITY = true;
+			}
+		}
+		else if (dmg < 1)
+		{
+			bFLOORHUGGER = bNOGRAVITY = true;
+		}
+		return dmg;
+	}
+	
+	override void BeginPlay()
+	{
+		ChangeStatNum(STAT_DARWINIAN);
+		Super.BeginPlay();
+	}
+	
+	//==========================================================================
+	// PostBeginPlay
+	//==========================================================================
+	//MyGlobalVariables p;
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+		/*
+		let p = MyGlobalVariables.Get();
+		if (p)
+		{
+			p.Add(1);
+			Console.Printf(String.Format("I've seen %d darwinians so far", p.testVar));
+		}
+		else A_Log("Ruh roh!");
+		*/
+		
+		angle = random(0,359);
+		SoulActor = "DigitalSoul";
+		Scale.X = 0.5 + frandom(-0.05, 0.05);
+		Scale.Y = 0.5 + frandom(-0.05, 0.05);
+		bits[0] = Spawn("DarwinianSide",pos);
+		bits[1] = Spawn("DarwinianSide",pos);
+		if (bits[1]) bits[1].A_SetVisibleRotation(180 - 11.25, 180 + 11.25, 0, 0, VRF_NOPITCH);
+		//bits[2] = Spawn("DarwinianBack",pos);
+		if (bits[2]) bits[2].A_SetVisibleRotation(90 + 11.25, 270 - 11.25, 0, 0, VRF_NOPITCH);
+		for (int i = 0; i < bits.Size(); i++)
+		{
+			if (bits[i])
+			{
+				bits[i].Scale = Scale;
+				if (bits[i] is "DarwinianSide")	bits[i].Scale.X = Scale.X / 4.0;
+				//bits[i].Translation = Translation;
+				TeamManager.SetTeam(bits[i], DesignatedTeam);
+			}
+		}
+		
+	}
+
+	//==========================================================================
+	// Tick
+	//==========================================================================
+	
+	override void Tick()
+	{
+		if (health < 1 || level.frozen || globalfreeze)
+			return Super.Tick();	
+		
+		
+		for (int g = 0; g < cooldown.Size(); g++)
+		{
+			if (cooldown[g] > 0)
+				cooldown[g]--;
+		}
+		
+		if (!bFLOORHUGGER)
+		{
+			for (int i = 0; i < bits.Size(); i++)
+			{
+				if (bits[i])
+				{
+					bits[i].SetOrigin(pos,false);
+					bits[i].vel = vel;
+				}
+			}
+		}
+		else
+		{
+			ticker = (ticker + 1) % 35;
+			if (!(ticker % 17))
+			{
+				SearchForActors();
+			}
+			if (!(ticker % 5) && (oldpos != pos || oldangle != angle))
+			{
+				bINTERPOLATEANGLES = false;
+				oldangle = angle;
+				oldpos = pos;
+				AngleSlope(angle);
+				
+				for (int i = 0; i < bits.Size(); i++)
+				{
+					if (bits[i])
+					{
+						bits[i].SetOrigin(pos,false);
+						bits[i].vel = vel;
+					}
+				}
+				if (bits[0] && bits[1])
+				{
+					bits[0].angle = bits[1].angle = angle + 90;
+					bits[0].pitch = bits[1].pitch = roll - 90;
+					bits[0].roll = bits[1].roll = -pitch - 90;
+				}
+				if (bits[2])
+				{
+					bits[2].angle = angle;
+					bits[2].pitch = pitch;
+					bits[2].roll = roll;
+				}
+			}
+		}
+		Super.Tick();
+	}
+
+	//==========================================================================
+	// OnDestroy
+	//==========================================================================
+	override void OnDestroy()
+	{
+		for (int i = 0; i < bits.Size(); i++)
+		{
+			if (bits[i])	bits[i].Destroy();
+		}
+		Super.OnDestroy();
+	}
+	
+	//==========================================================================
+	// 
+	//==========================================================================
+	
+	override void AngleSlope (double dang)
+	{
+		bINTERPOLATEANGLES = false;
+		Super.AngleSlope(dang);
+		bINTERPOLATEANGLES = true;
+	}
+	
+	//==========================================================================
+	//==========================================================================
+	//==========================================================================
+	// Functions
+	//==========================================================================
+	//==========================================================================
+	//==========================================================================
+	
+	void DarwinianDie()
+	{
+		bNOINTERACTION = bTHRUACTORS = true;
+		ChangeTID(0);
+		double DSpeed = 0;
+		if (vel.x || vel.y || vel.z)
+		{	
+			A_FaceMovementDirection();
+			DSpeed = vel.Length() * 2;
+		}
+		A_Stop();
+		A_Scream();
+		A_Fall();
+		
+		if (!Soulless)
+		{
+			if (DamageTypeReceived == 'SoulDestroyer')
+				SoulActor = "DarwinianGhost";
+			A_SpawnItemEx(SoulActor,0,0,height/2.0,cos(pitch) * DSpeed * 0.25, 0, -sin(pitch) * DSpeed * 0.25, 0, 
+				SXF_NOCHECKPOSITION|SXF_TRANSFERTRANSLATION);
+		}
+			
+		int rng = random(2,5);
+		for (int i = 0; i < rng; i++)
+		{
+			double np = pitch + frandom(-20.0, 20.0);
+			A_SpawnItemEx("DarwinianLimb",0,frandom(-4.0, 4.0),frandom(2.0, 5.5),
+				cos(np) * DSpeed,0,-sin(np) * DSpeed,frandom(-20.0,20.0),SXF_NOCHECKPOSITION|SXF_TRANSFERTRANSLATION);
+		}
+		
+		for (int i = 0; i < bits.Size(); i++)
+		{
+			if (bits[i])	bits[i].Destroy();
+		}
+	}
+	
+	//==========================================================================
+	//
+	//==========================================================================
+	
+	void A_DropAdjust(class<actor> missiletype, double dist = 0, bool userocket = false)
+	{
+		double dist = target ? distance2d(target) : 1;
+		readonly<Actor> mis = GetDefaultByType(missiletype);
+		double spd = mis.speed;
+		if (mis.gravity > 0.0 && dist > spd)
+		{
+			//if (userocket && missiletype is "GyroGrenade") spd *= 6.4; //used only for the gyrorockets
+			int ticstotake = dist / max(spd, 1.0);
+			int dropamt = 0;
+			for(int i = 1; i<= ticstotake; i++)
+			{
+				dropamt += i;
+			}
+			pitch -= min(atan(dropamt / dist), 30);
+		}
+	
+		//because we don't shoot from height 32 but 42
+		if (dist > 0) 
+			pitch += atan(10 / dist);
+	}
+	
+	//==========================================================================
+	//
+	// (Un)SetReverse
+	//
+	// This is my 'solution' to running away from something -- the Darwinian
+	// does a full 180 and it's completely unnoticeable, while facing the 
+	// threat, allowing it to appear as if they're actually facing away from it.
+	//
+	//==========================================================================
+	
+	void SetReverse()
+	{
+		if (health < 1)	return;
+		if (!reversed)
+		{
+			angle += 180;
+			AngleSlope(angle);
+			reversed = true;
+			velForward = -abs(velForward);
+		}
+	}
+	
+	void UnsetReverse()
+	{
+		if (health < 1)	return;
+		if (reversed)
+		{
+			angle += 180;
+			AngleSlope(angle);
+			reversed = false;
+			velForward = abs(velForward);
+		}
+	}
+	
+	//==========================================================================
+	// Muzzle Flash
+	//==========================================================================
+	void MuzzleFlash(double offz = 16)
+	{
+		Actor muz = Spawn("DarwinianMuzzleFlashNoAdjust",pos + (0,0,offz));
+		if (muz)
+		{
+			muz.target = self;
+			muz.pitch = pitch + 90;
+			muz.angle = angle;
+		}
+	}
+	
+	//==========================================================================
+	// Operating
+	//==========================================================================
+	
+	void OperateTilt (double amt)
+	{
+		if (health < 1)	return;
+		//roll = oldroll + sin(amt) * 3;
+		roll += sin(amt) * 30;
+	}
+	
+	//==========================================================================
+	// Actor Search
+	//==========================================================================
+	enum MaxDistances
+	{
+		Dist_Explosive = 		170,
+		Dist_Darwinian = 		384,
+		Dist_SoulDestroyer = 	512
+	};
+	void SearchForActors(bool getClosest = false)
+	{
+		if (health < 1)	return;
+		
+		static const int Priority[] =
+		{
+			//STAT_SOULDESTROYER,
+			STAT_EXPLOSIVE,
+			STAT_DARWINIAN
+		};
+		
+		static const int ActorDistance[] =
+		{
+			//Dist_SoulDestroyer,
+			Dist_Explosive,
+			Dist_Darwinian
+		};
+		
+		int size = Priority.Size();
+		
+		for (int i = 0; i < size; i++)
+		{
+			double dist = ActorDistance[i];
+			
+			let it = ThinkerIterator.Create("Actor",Priority[i]);
+			Actor mo;
+			while (mo = Actor(it.Next()))
+			{
+				// No self, dead, team mates or invisible entities.
+				if (mo == self || mo.health < 1 || mo.DesignatedTeam == DesignatedTeam || mo.bINVISIBLE)
+					continue;
+				
+			//	if (mo.GetClass() != "DarwinianGrenade" && isTeammate(mo))
+			//		continue;
+			
+			//	if (mo.tid == TID_Darwinian && !(mo is "PlayerPawn") && !(mo is "Darwinian"))
+			//		continue;
+			
+			//	if (!CheckSight(mo, SF_IGNOREVISIBILITY|SF_IGNOREWATERBOUNDARY))
+			//		continue;	
+			
+				double distCheck = Distance2D(mo);
+				// Outside of range.
+				if (distCheck > dist)
+					continue;
+				
+				if (closestDist < 0.0 || !closest)
+				{
+					closest = mo;
+					closestDist = dist;
+				}
+				else if (distCheck < closestDist)
+				{
+					closest = mo;
+					closestDist = dist;
+				}
+				if (!getClosest)
+					return;	
+			}
+		}
+	}
+	/*
+	void SearchForActors(Class<Actor> Specific = null, bool getClosest = false)
+	{
+		if (health < 1)	return;
+		// Search for high priority threats first.
+		
+		static const int ActorID[] =
+		{
+			TID_SoulDestroyer,
+			TID_Grenade,
+			TID_Rocket,
+			TID_Darwinian,
+			TID_Darwinian
+		};
+		static const Class<Actor> ActorList[] =
+		{
+			"SoulDestroyer",
+			"DarwinianGrenade",
+			"DarwinianRocket",
+			"DarwinianPlayer",
+			"Darwinian"
+		};
+		
+		static const int ActorDistance[] =
+		{
+			512,
+			170,
+			170,
+			384,
+			384
+		};
+		
+		int size = ActorList.Size();
+		for (int g = 0; g < size; g++)
+		{
+			// Do not waste effort searching for things we don't care about. This
+			// is especially useful for constantly checking for grenades and/or
+			// rockets, since without this, lots of slowdowns can occur.
+			if (Specific && ActorList[g] != Specific)
+				continue;
+				
+			// See Misc.txt
+			int id = 					ActorID[g];
+			double dist = 				ActorDistance[g];
+			Class<Actor> cname = 		ActorList[g];
+			
+			
+			let it = ActorIterator.Create(id, cname);
+			Actor mo;
+			while (mo = it.Next())
+			{	
+				if (!mo.TID || mo == self || mo.DesignatedTeam == DesignatedTeam || mo.bINVISIBLE)
+					continue;
+					
+			//	if (mo.GetClass() != "DarwinianGrenade" && isTeammate(mo))
+			//		continue;
+				
+				double distCheck = Distance2D(mo);
+				
+				if (distCheck > dist)
+					continue;
+			
+				if (mo.tid == TID_Darwinian && !(mo is "PlayerPawn") && !(mo is "Darwinian"))
+					continue;
+			
+				//if (!CheckSight(mo, SF_IGNOREVISIBILITY|SF_IGNOREWATERBOUNDARY))
+				//	continue;
+				
+				if (closestDist < 0.0 || !closest)
+				{
+					closest = mo;
+					closestDist = dist;
+				}
+				
+				if (distCheck < closestDist)
+				{
+					closest = mo;
+					closestDist = dist;
+				}
+				if (!getClosest)
+					return;
+				
+			}
+		}
+	}
+	*/
+}

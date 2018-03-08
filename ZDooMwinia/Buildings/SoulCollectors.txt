@@ -1,0 +1,19 @@
+/*==============================================================================
+
+	Darwinia Buildings - Soul Collector
+	
+	When present in a map, big souls rain down from the sky around the place,
+	particularly around areas where the controlled collectors are. Requires
+	darwinians to operate. The more operating, the stronger the pull radius
+	and suction.
+
+==============================================================================*/
+
+/*==============================================================================
+
+	Darwinia Buildings - Soul Printer
+	
+	Used to process souls that pass through it, preparing them for deliverance
+	to spawn points.
+
+==============================================================================*/

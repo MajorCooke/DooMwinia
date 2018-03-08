@@ -1,0 +1,7 @@
+Class SoulDestroyer : DWMonsterTemp
+{
+	Default
+	{
+		DamageType "SoulDestroyer";
+	}
+}
